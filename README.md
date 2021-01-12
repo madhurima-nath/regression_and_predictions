@@ -1,2 +1,2 @@
-This contains the notebook for the WW COde webinar.
+This contains the notebook for the WW Code webinar.
 Add details later.
