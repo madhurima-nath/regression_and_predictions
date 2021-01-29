@@ -8,15 +8,12 @@ output: html_notebook
 This notebook contains the following topics:
 
 -   [Simple Linear Regression]
--   Multiple Linear Regression
--   Real-world Example using Regression
--   Factor variables in Regression
--   Regression Diagnostics - Outliers, Influential values, Correlated errors
--   Polynomial and Spline Regression
-
-```{r}
-plot(cars)
-```
+-   [Multiple Linear Regression]
+-   [Real-world Example using Regression]
+-   [Factor Variables]
+-   [Regression Diagnostics - Outliers, Influential Values, Correlated Errors]
+-   [Polynomial and Spline Regression]
+-   [Additional Points to Remember]
 
 ## Linear Regression
 
@@ -25,8 +22,7 @@ Aim: to establish a linear relationship (a mathematical formula) between the pre
 -   supervised learning
 -   linear relationship between quantitative variables
 
-Given a data set of $n$ data points, $\{y_{i},\,x_{i1},\ldots ,x_{ip}\}_{i=1}^{n},$ \
-the linear model with \$p\$ -vector of predictors \$x\$ is:
+Given a data set of $n$ data points, $\{y_{i},\,x_{i1},\ldots ,x_{ip}\}_{i=1}^{n},$ the linear model with \$p\$-vector of predictors \$x\$ is:
 
 ${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \mathbf{x}_{i}^{\mathsf {T}}{\boldsymbol {\beta }} + \epsilon_{i},\qquad i=1,\ldots ,n,$
 
@@ -41,6 +37,12 @@ where,
 $y = \begin{pmatrix} y_1 \\ y_2 \\.\\.\\.\\ y_n \end{pmatrix},  \qquad {\boldsymbol {\beta}} = \begin{pmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\.\\.\\.\\ \beta_p \end{pmatrix}, \qquad {\bf{\epsilon}} = \begin{pmatrix} \epsilon_1 \\ \epsilon_2 \\.\\.\\.\\ \epsilon_n \end{pmatrix}$
 
 ${\bf{X}} = \begin{pmatrix} \bf{x}_1^{\mathsf{T}} \\ \bf{x}_2^{\mathsf{T}} \\.\\.\\.\\ \bf{x}_n^{\mathsf{T}} \end{pmatrix} = \begin{pmatrix} 1 & x_{11} & \ldots & x_{1p} \\ 1 & x_{21} & \ldots & x_{2p} \\. & . & \ldots & .\\. & . & \ldots & .\\. & . & \ldots & . \\ 1 & x_{n1} & \ldots & x_{np} \end{pmatrix}$
+
+#### Linear Regression has the following assumptions:
+
+-   mean of the response at each value of the predictor, $x_i$, is a *linear* function of the $x_i$.
+-   errors/residuals, $\epsilon_i$, are *identically and independently distributed* as normal distribution, with mean 0 and equal (unknown) variance.
+-   errors, $\epsilon_i$, at each value of $x_i$, are *normally distributed.*
 
 ## Simple Linear Regression
 
@@ -65,3 +67,54 @@ $\overline{y}$ is the mean of all of the y-values
 $\widehat\beta_0$ tells the estimated regression equation at $x = 0$, if the 'scope of the model' includes $x = 0$, otherwise, $\widehat\beta_0$ is not meaningful.
 
 $\widehat\beta_1$ is the amount by which the mean response vary for every one unit increase in $x$.
+
+## Multiple Linear Regression
+
+text
+
+## Real-world Example using Regression
+
+text
+
+## Factor Variables
+
+text
+
+## Regression Diagnostics - Outliers, Influential Values, Correlated Errors
+
+text
+
+## Polynomial and Spline Regression
+
+text
+
+## Additional Points to Remember
+
+Over-fitting and under-fitting are two extreme ends of fitting a model to the data observations.
+
+-   Under-fitting: when model doesn't capture the underlying trend from the data points. e.g.: trying to model a non-linear relationship with a linear model. This scenario is the case of high bias and low variance.
+-   Over-fitting: when model tries to fit all the data points, that it starts capturing the noise. e.g.: trying to model a quadratic relationship with a 5th order polynomial. This is the case of low bias and high variance.
+
+\- Bias: it is the error from incorrect assumptions in the learning algorithm.
+
+\- Variance: it is the error from sensitivity to small fluctuations in the training set.
+
+Frequently used techniques to reduce under-fitting:
+
+-   Increase model complexity
+-   Increase number of features, perform feature engineering
+-   Remove noise from the data
+-   Increase the number of epochs or increase the duration of training to get better results.
+
+Frequently used techniques to reduce over-fitting:
+
+-   Increase training data
+-   Reduce model complexity
+-   Early stopping during the training phase (keep an eye over the loss over the training period as soon as loss begins to increase stop training).
+-   Ridge Regularization and Lasso Regularization - penalize for additional complexity
+
+## References
+
+1.  [Penn State STAT 462 Applied Regression Analysis](https://online.stat.psu.edu/stat462/node/77/)
+2.  [Khan Academy](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/assessing-fit-least-squares-regression/v/influential-points-regression))
+3.  [Cornell Machine Learning Course](https://www.cs.cornell.edu/courses/cs4780/2018fa/)
