@@ -19,10 +19,7 @@ This notebook contains the following topics:
 
 Aim: to establish a linear relationship (a mathematical formula) between the predictor variable(s) and the response variable, to estimate the value of the response (outcome of dependent) variable $y$, when only the predictors (explanatory or independent variables) $x$ values are known.
 
--   supervised learning
--   linear relationship between quantitative variables
-
-Given a data set of $n$ data points, $\{y_{i},\,x_{i1},\ldots ,x_{ip}\}_{i=1}^{n},$ the linear model with \$p\$-vector of predictors \$x\$ is:
+Given a data set of $n$ data points, $\{y_{i},\,x_{i1},\ldots ,x_{ip}\}_{i=1}^{n},$ the linear model with \$p\$-vector of predictors $x$ is:
 
 ${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \mathbf{x}_{i}^{\mathsf {T}}{\boldsymbol {\beta }} + \epsilon_{i},\qquad i=1,\ldots ,n,$
 
@@ -30,13 +27,24 @@ where $\mathbf{x}_{i}^{\mathsf {T}} \beta$ is the inner product between vectors 
 
 In matrix notation,
 
-${y = X} {\boldsymbol{\beta}} + {\bf{\epsilon}}$
+${\mathbf{y = X}} {\boldsymbol{\beta}} + {\bf{\epsilon}}$
 
 where,
 
-$y = \begin{pmatrix} y_1 \\ y_2 \\.\\.\\.\\ y_n \end{pmatrix},  \qquad {\boldsymbol {\beta}} = \begin{pmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\.\\.\\.\\ \beta_p \end{pmatrix}, \qquad {\bf{\epsilon}} = \begin{pmatrix} \epsilon_1 \\ \epsilon_2 \\.\\.\\.\\ \epsilon_n \end{pmatrix}$
+$\mathbf{y} = \begin{pmatrix} y_1 \\ y_2 \\.\\.\\.\\ y_n \end{pmatrix}, \qquad {\boldsymbol {\beta}} = \begin{pmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\.\\.\\.\\ \beta_p \end{pmatrix}, \qquad {\bf{\epsilon}} = \begin{pmatrix} \epsilon_1 \\ \epsilon_2 \\.\\.\\.\\ \epsilon_n \end{pmatrix}$
 
 ${\bf{X}} = \begin{pmatrix} \bf{x}_1^{\mathsf{T}} \\ \bf{x}_2^{\mathsf{T}} \\.\\.\\.\\ \bf{x}_n^{\mathsf{T}} \end{pmatrix} = \begin{pmatrix} 1 & x_{11} & \ldots & x_{1p} \\ 1 & x_{21} & \ldots & x_{2p} \\. & . & \ldots & .\\. & . & \ldots & .\\. & . & \ldots & . \\ 1 & x_{n1} & \ldots & x_{np} \end{pmatrix}$
+
+Summarize:
+
+-   $\mathbf{X}$ - independent predictors
+-   $\mathbf{y}$ - dependent response
+-   $\boldsymbol{\beta}$ - regression coefficients
+-   linear relationship between the response function and regression coefficients
+
+The best fitted model - one which minimizes the sum of the prediction errors/residuals, i.e., minimizes $\sum_{i=0}^n e_i = \sum_{i=0}^n (y_i - \widehat{y}_i)^2$
+
+(i.e., minimizes the least squared error). Here $\widehat{y}_i$ are the predicted responses.
 
 #### Linear Regression has the following assumptions:
 
@@ -70,7 +78,13 @@ $\widehat\beta_1$ is the amount by which the mean response vary for every one un
 
 ## Multiple Linear Regression
 
-text
+Multiple linear regression is a generalized version of simple regression, where more than one independent variables are used. . The basic model for multiple linear regression is as discussed above:
+
+${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \mathbf{x}_{i}^{\mathsf {T}}{\boldsymbol {\beta }} + \epsilon_{i},\qquad i=1,\ldots ,n,$
+
+The
+
+Generally, all real-world problems involve multiple predictors.
 
 ## Real-world Example using Regression
 
@@ -118,3 +132,4 @@ Frequently used techniques to reduce over-fitting:
 1.  [Penn State STAT 462 Applied Regression Analysis](https://online.stat.psu.edu/stat462/node/77/)
 2.  [Khan Academy](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/assessing-fit-least-squares-regression/v/influential-points-regression))
 3.  [Cornell Machine Learning Course](https://www.cs.cornell.edu/courses/cs4780/2018fa/)
+4.  [CMU Data Analytics Course](https://www.stat.cmu.edu/~ryantibs/advmethods/notes/smoothspline.pdf)
