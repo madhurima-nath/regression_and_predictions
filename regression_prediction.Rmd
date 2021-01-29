@@ -1,0 +1,67 @@
+---
+title: 'Regression and Predictions'
+output: html_notebook
+---
+
+## Contents:
+
+This notebook contains the following topics:
+
+-   [Simple Linear Regression]
+-   Multiple Linear Regression
+-   Real-world Example using Regression
+-   Factor variables in Regression
+-   Regression Diagnostics - Outliers, Influential values, Correlated errors
+-   Polynomial and Spline Regression
+
+```{r}
+plot(cars)
+```
+
+## Linear Regression
+
+Aim: to establish a linear relationship (a mathematical formula) between the predictor variable(s) and the response variable, to estimate the value of the response (outcome of dependent) variable $y$, when only the predictors (explanatory or independent variables) $x$ values are known.
+
+-   supervised learning
+-   linear relationship between quantitative variables
+
+Given a data set of $n$ data points, $\{y_{i},\,x_{i1},\ldots ,x_{ip}\}_{i=1}^{n},$ \
+the linear model with \$p\$ -vector of predictors \$x\$ is:
+
+${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \mathbf{x}_{i}^{\mathsf {T}}{\boldsymbol {\beta }} + \epsilon_{i},\qquad i=1,\ldots ,n,$
+
+where $\mathbf{x}_{i}^{\mathsf {T}} \beta$ is the inner product between vectors $\mathbf{x}_i$ and $\boldsymbol {\beta}$ and $\epsilon$ is the error variable, an unobserved random variable that adds 'noise' to the linear relationship.
+
+In matrix notation,
+
+${y = X} {\boldsymbol{\beta}} + {\bf{\epsilon}}$
+
+where,
+
+$y = \begin{pmatrix} y_1 \\ y_2 \\.\\.\\.\\ y_n \end{pmatrix},  \qquad {\boldsymbol {\beta}} = \begin{pmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\.\\.\\.\\ \beta_p \end{pmatrix}, \qquad {\bf{\epsilon}} = \begin{pmatrix} \epsilon_1 \\ \epsilon_2 \\.\\.\\.\\ \epsilon_n \end{pmatrix}$
+
+${\bf{X}} = \begin{pmatrix} \bf{x}_1^{\mathsf{T}} \\ \bf{x}_2^{\mathsf{T}} \\.\\.\\.\\ \bf{x}_n^{\mathsf{T}} \end{pmatrix} = \begin{pmatrix} 1 & x_{11} & \ldots & x_{1p} \\ 1 & x_{21} & \ldots & x_{2p} \\. & . & \ldots & .\\. & . & \ldots & .\\. & . & \ldots & . \\ 1 & x_{n1} & \ldots & x_{np} \end{pmatrix}$
+
+## Simple Linear Regression
+
+Simple linear regression attempts to model the data in the form of the best fitting line:
+
+${y}_i = \beta_0 + \beta_1 x_i + \epsilon_i \qquad i = 1,…, n$
+
+This is the equation of a straight line, recall $y = mx +c$, where $m$ is the slope and $c$ is the intercept.
+
+Minimization $\rightarrow$ take derivatives of $\sum_{i=1}^n e_i$ w.r.t $\beta_0$ and $\beta_1$, set to 0 and solve for $\beta_0$ and $\beta_1$.
+
+$\widehat\beta_0 = \overline{y} - \widehat\beta_1 \overline{x}$
+
+$\widehat\beta_1 = \frac{\sum_{i=1}^n (x_i - \overline{x} )(y_i - \overline{y} )}{\sum_{i=1}^n (x_i - \overline{x})^2}$
+
+where,
+
+$\overline{x}$ is the mean of all of the x-values
+
+$\overline{y}$ is the mean of all of the y-values
+
+$\widehat\beta_0$ tells the estimated regression equation at $x = 0$, if the 'scope of the model' includes $x = 0$, otherwise, $\widehat\beta_0$ is not meaningful.
+
+$\widehat\beta_1$ is the amount by which the mean response vary for every one unit increase in $x$.
