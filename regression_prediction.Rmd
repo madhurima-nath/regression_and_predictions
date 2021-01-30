@@ -95,7 +95,34 @@ Generally, all real-world problems involve multiple predictors.
 
 ## Real-world Example using Regression
 
-text
+Data: New York air quality data in R ([details about dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/airquality.html))
+
+-   Ozone: Mean ozone in parts per billion from 1300 to 1500 hours at Roosevelt Island
+
+-   Solar.R: Solar radiation in Langleys in the frequency band 4000--7700 Angstroms from 0800 to 1200 hours at Central Park
+
+-   Wind: Average wind speed in miles per hour at 0700 and 1000 hours at LaGuardia Airport
+
+-   Temp: Maximum daily temperature in degrees Fahrenheit at LaGuardia Airport
+
+-   Month: Numeric value of Month (1--12)
+
+-   Day: Day of month (1--31).
+
+There are 6 variables - our target $\rightarrow$ attribute 'ozone'.
+
+```{r}
+data('airquality')
+str(airquality)
+```
+
+```{r}
+head(airquality)
+```
+
+#### Exploratory Analysis and Pre-processing the data
+
+There are some missing values. Let's impute these by replacing the *'NA'* with monthly average.
 
 ## Factor Variables
 
