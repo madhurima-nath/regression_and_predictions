@@ -1,35 +1,39 @@
 ---
-title: 'Regression and Predictions'
-output: html_notebook
+title: "Regression and Predictions"
+output:
+  html_notebook: default
 ---
 
 ## Contents:
 
 This notebook contains the following topics:
 
--   [Simple Linear Regression]
--   [Multiple Linear Regression]
+-   [Linear Regression]
+
+    -   [Simple Linear Regression]
+    -   [Multiple Linear Regression]
+
 -   [Real-world Example using Regression]
+
 -   [Factor Variables]
+
 -   [Regression Diagnostics - Outliers, Influential Values, Correlated Errors]
+
 -   [Polynomial and Spline Regression]
+
 -   [Additional Points to Remember]
 
 ## Linear Regression
 
-Aim: to establish a linear relationship (a mathematical formula) between the predictor variable(s) and the response variable, to estimate the value of the response (outcome of dependent) variable $y$, when only the predictors (explanatory or independent variables) $x$ values are known.
+[**Aim**]{.ul}: to establish a linear relationship (a mathematical formula) between the predictor variable(s) and the response variable, to estimate the value of the response (outcome of dependent) variable $y$, when only the predictors (explanatory or independent variables) $x$ values are known.
 
-Given a data set of $n$ data points, $\{y_{i},\,x_{i1},\ldots ,x_{ip}\}_{i=1}^{n},$ the linear model with \$p\$-vector of predictors $x$ is:
+Given a data set of $n$ data points, $\{y_{i},\,x_{i1},\ldots ,x_{ip}\}_{i=1}^{n},$ the linear model with $p$-vector of predictors $x$ is:
 
 ${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \mathbf{x}_{i}^{\mathsf {T}}{\boldsymbol {\beta }} + \epsilon_{i},\qquad i=1,\ldots ,n,$
 
 where $\mathbf{x}_{i}^{\mathsf {T}} \beta$ is the inner product between vectors $\mathbf{x}_i$ and $\boldsymbol {\beta}$ and $\epsilon$ is the error variable, an unobserved random variable that adds 'noise' to the linear relationship.
 
-In matrix notation,
-
-${\mathbf{y = X}} {\boldsymbol{\beta}} + {\bf{\epsilon}}$
-
-where,
+In matrix notation, ${\mathbf{y = X}} {\boldsymbol{\beta}} + {\bf{\epsilon}}$, where,
 
 $\mathbf{y} = \begin{pmatrix} y_1 \\ y_2 \\.\\.\\.\\ y_n \end{pmatrix}, \qquad {\boldsymbol {\beta}} = \begin{pmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\.\\.\\.\\ \beta_p \end{pmatrix}, \qquad {\bf{\epsilon}} = \begin{pmatrix} \epsilon_1 \\ \epsilon_2 \\.\\.\\.\\ \epsilon_n \end{pmatrix}$
 
@@ -41,18 +45,21 @@ Summarize:
 -   $\mathbf{y}$ - dependent response
 -   $\boldsymbol{\beta}$ - regression coefficients
 -   linear relationship between the response function and regression coefficients
+-   distribution of $\mathbf{X}$ is arbitrary
+-   distribution of estimated coefficients, $\widehat{\boldsymbol{\beta}}$ will depend on the distribution of predicted responses, $\widehat{\mathbf{y}}$
 
 The best fitted model - one which minimizes the sum of the prediction errors/residuals, i.e., minimizes $\sum_{i=0}^n e_i = \sum_{i=0}^n (y_i - \widehat{y}_i)^2$
 
 (i.e., minimizes the least squared error). Here $\widehat{y}_i$ are the predicted responses.
 
-#### Linear Regression has the following assumptions:
+#### [Linear Regression has the following assumptions:]{.ul}
 
 -   mean of the response at each value of the predictor, $x_i$, is a *linear* function of the $x_i$.
 -   errors/residuals, $\epsilon_i$, are *identically and independently distributed* as normal distribution, with mean 0 and equal (unknown) variance.
 -   errors, $\epsilon_i$, at each value of $x_i$, are *normally distributed.*
+-   responses, $y_i$ and therefore, $\beta_i$, are *normally distributed*.
 
-## Simple Linear Regression
+### Simple Linear Regression
 
 Simple linear regression attempts to model the data in the form of the best fitting line:
 
@@ -76,13 +83,13 @@ $\widehat\beta_0$ tells the estimated regression equation at $x = 0$, if the 'sc
 
 $\widehat\beta_1$ is the amount by which the mean response vary for every one unit increase in $x$.
 
-## Multiple Linear Regression
+### Multiple Linear Regression
 
 Multiple linear regression is a generalized version of simple regression, where more than one independent variables are used. . The basic model for multiple linear regression is as discussed above:
 
 ${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \mathbf{x}_{i}^{\mathsf {T}}{\boldsymbol {\beta }} + \epsilon_{i},\qquad i=1,\ldots ,n,$
 
-The
+The solution for the coefficients can be easily calculated using the matrix formulation: $\hat{\boldsymbol\beta} = (\mathbf{x}^T \mathbf{x})^{-1} \mathbf{x}^T \mathbf{y}$
 
 Generally, all real-world problems involve multiple predictors.
 
@@ -132,4 +139,4 @@ Frequently used techniques to reduce over-fitting:
 1.  [Penn State STAT 462 Applied Regression Analysis](https://online.stat.psu.edu/stat462/node/77/)
 2.  [Khan Academy](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/assessing-fit-least-squares-regression/v/influential-points-regression))
 3.  [Cornell Machine Learning Course](https://www.cs.cornell.edu/courses/cs4780/2018fa/)
-4.  [CMU Data Analytics Course](https://www.stat.cmu.edu/~ryantibs/advmethods/notes/smoothspline.pdf)
+4.  [CMU Data Analytics Course](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/06/lecture-06.pdf)
