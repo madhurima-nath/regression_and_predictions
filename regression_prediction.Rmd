@@ -122,7 +122,62 @@ head(airquality)
 
 #### Exploratory Analysis and Pre-processing the data
 
-There are some missing values. Let's impute these by replacing the *'NA'* with monthly average.
+Check for missing values in the dataset.
+
+```{r}
+mapply(anyNA, airquality)
+```
+
+There are some missing values in columns 'Ozone' and 'Solar.R'. Let's impute these by replacing the *'NA'* with monthly average.
+
+```{r}
+for (i in 1:nrow(airquality)){
+  if(is.na(airquality[i,'Ozone'])){
+    airquality[i,'Ozone'] = mean(airquality[
+      which(airquality[, 'Month'] == airquality[i, 'Month']), 
+            'Ozone'],na.rm = TRUE)
+  }
+  
+  if(is.na(airquality[i,'Solar.R'])){
+    airquality[i,'Solar.R'] = mean(airquality[
+      which(airquality[, 'Month'] == airquality[i, 'Month']), 
+            'Solar.R'],na.rm = TRUE)
+  }
+  
+}
+```
+
+```{r}
+head(airquality)
+```
+
+#### Simple Regression on the data
+
+Since simple regression requires only one predictor, let's take 'Solar.R' as the predictor for the target 'Ozone'.
+
+$lm()$ function creates the relationship model between the predictor and the response variable
+
+$lm(formula,data)$ is the syntax for the function, where the parameters used -
+
+-   formula is a symbol presenting the relation between x and y.
+-   data is the vector on which the formula will be applied.
+
+predict(object, newdata) is the syntax for predict() in linear regression, where the parameters used −
+
+\- object is the formula which is already created using the lm() function.
+
+\- newdata is the vector containing the new value for predictor variable.
+
+```{r}
+# select predictor attribute
+x =  airquality[, 'Solar.R']
+                
+# select target attribute
+y = airquality[, 'Ozone'] 
+
+simple_model  = lm(y~x)
+model1 # provides regression line coefficients i.e. slope and y-intercept
+```
 
 ## Factor Variables
 
