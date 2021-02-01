@@ -203,16 +203,18 @@ summary(simple_model)
 
 The coefficient standard error measures the average amount that the coefficient estimates vary from the actual average value of our response variable.
 
-The coefficient t-value is a measure of how many standard deviations the coefficient estimate is far away from 0. The farther away from zero indicates that the null hypothesis can be rejected - that is, declare a linear relationship between ozone numbers and temperature exists.
+The coefficient t-value is a measure of how many standard deviations the coefficient estimate is far away from 0. The farther away from zero indicates that the null hypothesis (there is no relationship between the predictor and the response) can be rejected - that is, declare a linear relationship between ozone numbers and temperature exists.
 
-The Pr(\>\|t\|) relates to the probability of observing any value equal or larger than $t$. A small \$p\$-value indicates that it is unlikely to observe a relationship between the predictor (temperature) and response (ozone) variables due to chance. Typically, a \$p\$-value of 5% or less is a good cut-off point. In this example, the \$p\$-values are very close to zero. \
-Note: 'Signif. Codes' associated to each estimate. Three stars (or asterisks) represent a highly significant \$p\$-value. Consequently, a small \$p\$-value for the intercept and the slope indicates that the null hypothesis can be rejected.
+The Pr(\>\|t\|) relates to the probability of observing any value equal or larger than $t$. A small p-value indicates that it is unlikely to observe a relationship between the predictor (temperature) and response (ozone) variables due to chance. Typically, a p-value of 5% or less is a good cut-off point. In this example, the p-values are very close to zero. \
+Note: 'Signif. Codes' associated to each estimate. Three stars (or asterisks) represent a highly significant p-value. Consequently, a small p-value for the intercept and the slope indicates that the null hypothesis can be rejected.
 
-R-squared value: shows how close the data is to the simple linear regression model.
+**Residual Standard Error**: measure of the quality of a linear regression fit. Theoretically, every linear model is assumed to contain an error term. The residual standard error is the average amount that the response will deviate from the true regression line.
 
-F statistic tells if there is a relationship between the dependent and independent variables being tested. Generally, a large F indicates a stronger relationship.
+**Multiple R-squared, Adjusted R-squared**: R-squared statistic provides a measure of how well the model is fitting the actual data. It takes the form of a proportion of variance, lies between 0 and 1.
 
-p-value is associated with the F statistic, and is used to interpret the significance for the whole model fit to the data.
+In multiple regression settings, the $R^2$ will always increase as more variables are included in the model. That's why the adjusted $R^2$ is the preferred measure as it adjusts for the number of variables considered.
+
+**F statistic**: tells if there is a relationship between the dependent and independent variables being tested. Generally, a large F indicates a stronger relationship. The further the F-statistic is from 1 the better it is. However, how much larger the F-statistic needs to be depends on both the number of data points and the number of predictors. Generally, when the number of data points is large, an F-statistic that is only a little bit larger than 1 is already sufficient to reject the null hypothesis
 
 ```{r}
 
