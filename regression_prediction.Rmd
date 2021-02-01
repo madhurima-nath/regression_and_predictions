@@ -111,6 +111,16 @@ Data: New York air quality data in R ([details about dataset](https://stat.ethz.
 
 There are 6 variables - our target $\rightarrow$ attribute 'ozone'.
 
+$lm(formula,data)$ function creates the relationship model between the predictor and the response variable, where the parameters used are -
+
+-   formula is a symbol presenting the relation between x and y.
+-   data is the vector on which the formula will be applied.
+
+$predict(object, newdata)$ function is used for prediction, where the parameters used −
+
+-   object is the formula which is already created using the lm() function.
+-   newdata is the vector containing the new value for predictor variable.
+
 ```{r}
 data('airquality')
 str(airquality)
@@ -153,30 +163,67 @@ head(airquality)
 
 #### Simple Regression on the data
 
-Since simple regression requires only one predictor, let's take 'Solar.R' as the predictor for the target 'Ozone'.
-
-$lm()$ function creates the relationship model between the predictor and the response variable
-
-$lm(formula,data)$ is the syntax for the function, where the parameters used -
-
--   formula is a symbol presenting the relation between x and y.
--   data is the vector on which the formula will be applied.
-
-predict(object, newdata) is the syntax for predict() in linear regression, where the parameters used −
-
-\- object is the formula which is already created using the lm() function.
-
-\- newdata is the vector containing the new value for predictor variable.
+Since simple regression requires only one predictor, let's take 'Temp' as the predictor for the target 'Ozone'.
 
 ```{r}
 # select predictor attribute
-x =  airquality[, 'Solar.R']
+x =  airquality[, 'Temp']
                 
 # select target attribute
 y = airquality[, 'Ozone'] 
 
-simple_model  = lm(y~x)
-model1 # provides regression line coefficients i.e. slope and y-intercept
+# split into train-test set
+library(caTools)
+x_train = subset(x, sample.split(airquality, SplitRatio = 0.7) == TRUE)
+y_train = subset(y, sample.split(airquality, SplitRatio = 0.7) == TRUE)
+
+x_test = subset(x, sample.split(airquality, SplitRatio = 0.7) == FALSE)
+y_test = subset(y, sample.split(airquality, SplitRatio = 0.7) == FALSE)
+```
+
+```{r}
+
+simple_model  = lm(y_train~x_train)
+
+# provides regression line coefficients, i.e., slope and y-intercept
+simple_model
+```
+
+```{r}
+
+# scatter plot between x and y
+plot(y_train~x_train)
+# plot the regression line
+abline(simple_model, col = 'blue', lwd = 2)
+```
+
+```{r}
+print(predict(simple_model))
+```
+
+```{r}
+
+library(ggplot2)
+
+p = ggplot(data = airquality, aes(x, y)) + geom_point() +
+stat_smooth(method = 'lm', col = 'dodgerblue3') +
+theme(panel.background = element_rect(fill = 'white'),
+axis.line.x=element_line(),
+axis.line.y=element_line()) + ggtitle('Linear Model Fitted to Data')
+
+p + labs(x = 'Temp', y = 'Ozone')
+```
+
+The gray shading around the line represents a confidence interval of 0.95, the default for the stat_smooth() function, which smoothes data to make patterns easier to visualize. This 0.95 confidence interval is the probability that the true linear model for the temperature and ozone will lie within the confidence interval of the regression model fitted to the data. There is still variability within the observations, even though the model fits the data well.
+
+```{r}
+ggplot(data = airquality, aes(simple_model$residuals)) +
+geom_histogram(bins = 50, color = 'black', fill = 'grey') +
+theme(panel.background = element_rect(fill = 'white'),
+axis.line.x=element_line(),
+axis.line.y=element_line()) +
+ggtitle('Histogram for Model Residuals')
+
 ```
 
 ## Factor Variables
