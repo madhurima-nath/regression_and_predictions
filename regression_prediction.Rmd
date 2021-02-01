@@ -171,19 +171,11 @@ x =  airquality[, 'Temp']
                 
 # select target attribute
 y = airquality[, 'Ozone'] 
-
-# split into train-test set
-library(caTools)
-x_train = subset(x, sample.split(airquality, SplitRatio = 0.7) == TRUE)
-y_train = subset(y, sample.split(airquality, SplitRatio = 0.7) == TRUE)
-
-x_test = subset(x, sample.split(airquality, SplitRatio = 0.7) == FALSE)
-y_test = subset(y, sample.split(airquality, SplitRatio = 0.7) == FALSE)
 ```
 
 ```{r}
 
-simple_model  = lm(y_train~x_train)
+simple_model  = lm(y~x)
 
 # provides regression line coefficients, i.e., slope and y-intercept
 simple_model
@@ -192,14 +184,35 @@ simple_model
 ```{r}
 
 # scatter plot between x and y
-plot(y_train~x_train)
+plot(y~x)
 # plot the regression line
 abline(simple_model, col = 'blue', lwd = 2)
 ```
 
 ```{r}
-print(predict(simple_model))
+summary(simple_model)
 ```
+
+#### Interpretation of the output
+
+**Call**: Formula used to fit the data.
+
+**Residuals**: Difference between the actual observed response values and the response values that the model predicted. This section broken into 5 summary points. A symmetrical distribution across these points on the mean value zero (0) tells how well the model fits the data. In the example, we can see that the distribution of the residuals do not appear to be strongly symmetrical. That means that the model predicts certain points that fall far away from the actual observed points. Plotting the residuals will help check whether they are normally distributed.
+
+**Coefficients**: This section tells the coefficients of the model. In simple linear regression, the coefficients are two unknown constants that represent the *intercept* and *slope* terms in the linear model.
+
+The coefficient standard error measures the average amount that the coefficient estimates vary from the actual average value of our response variable.
+
+The coefficient t-value is a measure of how many standard deviations the coefficient estimate is far away from 0. The farther away from zero indicates that the null hypothesis can be rejected - that is, declare a linear relationship between ozone numbers and temperature exists.
+
+The Pr(\>\|t\|) relates to the probability of observing any value equal or larger than $t$. A small \$p\$-value indicates that it is unlikely to observe a relationship between the predictor (temperature) and response (ozone) variables due to chance. Typically, a \$p\$-value of 5% or less is a good cut-off point. In this example, the \$p\$-values are very close to zero. \
+Note: 'Signif. Codes' associated to each estimate. Three stars (or asterisks) represent a highly significant \$p\$-value. Consequently, a small \$p\$-value for the intercept and the slope indicates that the null hypothesis can be rejected.
+
+R-squared value: shows how close the data is to the simple linear regression model.
+
+F statistic tells if there is a relationship between the dependent and independent variables being tested. Generally, a large F indicates a stronger relationship.
+
+p-value is associated with the F statistic, and is used to interpret the significance for the whole model fit to the data.
 
 ```{r}
 
@@ -262,6 +275,17 @@ Frequently used techniques to reduce over-fitting:
 -   Reduce model complexity
 -   Early stopping during the training phase (keep an eye over the loss over the training period as soon as loss begins to increase stop training).
 -   Ridge Regularization and Lasso Regularization - penalize for additional complexity
+
+```{r}
+
+# split into train-test set
+#library(caTools)
+#x_train = subset(x, sample.split(airquality, SplitRatio = 0.7) == TRUE)
+#y_train = subset(y, sample.split(airquality, SplitRatio = 0.7) == TRUE)
+
+#x_test = subset(x, sample.split(airquality, SplitRatio = 0.7) == FALSE)
+#y_test = subset(y, sample.split(airquality, SplitRatio = 0.7) == FALSE)
+```
 
 ## References
 
