@@ -241,6 +241,27 @@ ggtitle('Histogram for Model Residuals')
 
 ```
 
+#### Multiple Regression on the data
+
+```{r}
+
+# select predictor attribute
+x =  data.matrix(airquality[, 2:6])
+                
+# select target attribute
+y = airquality[, 'Ozone']
+```
+
+```{r}
+multi_model = lm(y~x, data = airquality)
+
+summary(multi_model)
+```
+
+```{r}
+
+```
+
 ## Factor Variables
 
 text
