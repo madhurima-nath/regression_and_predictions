@@ -130,6 +130,15 @@ str(airquality)
 head(airquality)
 ```
 
+**Install necessary libraries**
+
+```{r}
+
+library(ggplot2)
+library(olsrr)
+library(car)
+```
+
 #### Exploratory Analysis and Pre-processing the data
 
 Check for missing values in the dataset.
@@ -159,15 +168,6 @@ for (i in 1:nrow(airquality)){
 
 ```{r}
 head(airquality)
-```
-
-**Install necessary libraries**
-
-```{r}
-
-library(ggplot2)
-library(olsrr)
-library(car)
 ```
 
 #### Simple Regression on the data
@@ -214,7 +214,7 @@ The coefficient standard error measures the average amount that the coefficient 
 
 The coefficient t-value is a measure of how many standard deviations the coefficient estimate is far away from 0. The farther away from zero indicates that the null hypothesis (there is no relationship between the predictor and the response) can be rejected - that is, declare a linear relationship between ozone numbers and temperature exists.
 
-The Pr(\>\|t\|) relates to the probability of observing any value equal or larger than $t$. A small p-value indicates that it is unlikely to observe a relationship between the predictor (temperature) and response (ozone) variables due to chance. Typically, a p-value of 5% or less is a good cut-off point. In this example, the p-values are very close to zero. \
+The Pr(\>\|t\|) relates to the probability of observing any value equal or larger than $t$. A small p-value indicates that it is unlikely to observe a relationship between the predictor (temperature) and response (ozone) variables due to chance. Typically, a p-value of 5% or less is a good cut-off point. In this example, the p-values are very close to zero.\
 Note: 'Signif. Codes' associated to each estimate. Three stars (or asterisks) represent a highly significant p-value. Consequently, a small p-value for the intercept and the slope indicates that the null hypothesis can be rejected.
 
 **Residual Standard Error**: measure of the quality of a linear regression fit. Theoretically, every linear model is assumed to contain an error term. The residual standard error is the average amount that the response will deviate from the true regression line.
@@ -237,6 +237,14 @@ p + labs(x = 'Temp', y = 'Ozone')
 
 The gray shading around the line represents a confidence interval of 0.95, the default for the stat_smooth() function, which smoothes data to make patterns easier to visualize. This 0.95 confidence interval is the probability that the true linear model for the temperature and ozone will lie within the confidence interval of the regression model fitted to the data. There is still variability within the observations, even though the model fits the data well.
 
+**Check how residuals are distributed**:
+
+-   histogram (normal distribution)
+
+-   normal Q-Q plot of residuals w.r.t. theoretical quantiles
+
+-   standardized residual chart (standardized residual is the residual divided by estimated standard deviation)
+
 ```{r}
 ggplot(data = airquality, aes(simple_model$residuals)) +
 geom_histogram(bins = 50, color = 'black', fill = 'grey') +
@@ -245,6 +253,14 @@ axis.line.x=element_line(),
 axis.line.y=element_line()) +
 ggtitle('Histogram for Model Residuals')
 
+```
+
+```{r}
+plot(simple_model, which = 2)
+```
+
+```{r}
+ols_plot_resid_stand(simple_model)
 ```
 
 #### Multiple Regression on the data
@@ -271,7 +287,7 @@ These are categorical variables. Most important advantage of converting categori
 
 **Outliers**: an observation which has a response value that is very different from the predicted value based on a model.
 
-![](plot.png){width="551"}
+![](outlier.png)
 
 **Influential values**: a data point which unduly influences any part of a regression analysis, such as the predicted responses, the estimated slope coefficients, or the hypothesis test results.
 
@@ -280,14 +296,21 @@ These are categorical variables. Most important advantage of converting categori
 -   methods to identify influential values:
 
     1.  Difference in Fits (DFFITS)
-    2.  Cook's Distances
+
+        An observation is deemed influential if
+
+        $|DFFITS| > 2 * \frac{\sqrt{m+1}}{(n-m-1)}$
+
+        where $n$ is the number of observations and $m$ is the number of predictors including intercept
+
+    2.  Cook's Distance: a data point having a large Cook's d indicates that the data point strongly influences the fitted values.
 
 -   In both methods, the following idea is used:
 
     Delete the observations one at a time, refit the regression model on the remaining $n-1$ observations each time. Then, compare the results using all $n$ observations to the results with the $i^{th}$observation deleted to see how much influence the observation has on the analysis. This enables to assess the potential impact each data point has on the regression analysis.
 
 ```{r}
-
+ols_plot_dffits(simple_model)
 ```
 
 ```{r}
@@ -312,14 +335,14 @@ Caution: Polynomials are powerful tools but they can lead to over-fitting. **Ove
 
 **Multi-collinearity**: when two or more of the predictors in a regression model are moderately or highly correlated with one another.
 
-Computing the ***Variance Inflation Factor*** (VIF) for each independent variable helps detect multi-collinearity. A variance inflation factor (*VIF*) quantifies how much the variance is inflated. It exists for each of the predictors in a multiple regression model. \
+Computing the ***Variance Inflation Factor*** (VIF) for each independent variable helps detect multi-collinearity. A variance inflation factor (*VIF*) quantifies how much the variance is inflated. It exists for each of the predictors in a multiple regression model.\
 For example, VIF for the estimated regression coefficient $\beta_j$ is just the factor by which the variance of $\beta_j$, denoted by $VIF_j$ is inflated by the existence of correlation among the predictor variables in the model.
 
 $$VIF_j = \frac{1}{1-R_j^{2}}$$
 
 where $R_j^2$ the $R^2$ value obtained by regressing the $j^{th}$ predictor on the remaining predictors. 
 
-A VIF of 1 $\rightarrow$ there is no correlation among the $j^{th}$ predictor and the remaining predictor variables, and hence the variance of $\beta_j$ is not inflated at all. \
+A VIF of 1 $\rightarrow$ there is no correlation among the $j^{th}$ predictor and the remaining predictor variables, and hence the variance of $\beta_j$ is not inflated at all.\
 Generally, VIF \> 4 $\rightarrow$ further investigation,\
 VIF $\geq$ 10 $\rightarrow$ serious multi-collinearity.
 
@@ -370,3 +393,4 @@ Frequently used techniques to reduce over-fitting:
 2.  [Khan Academy](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/assessing-fit-least-squares-regression/v/influential-points-regression)
 3.  [Cornell Machine Learning Course](https://www.cs.cornell.edu/courses/cs4780/2018fa/)
 4.  [CMU Data Analytics Course](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/06/lecture-06.pdf)
+5.  [Measure of Influence](https://cran.r-project.org/web/packages/olsrr/vignettes/influence_measures.html#:~:text=Cook's%20D%20Bar%20Plot,-Bar%20Plot%20of&text=Cook's%20distance%20was%20introduced%20by,y%20value%20of%20the%20observation.)
