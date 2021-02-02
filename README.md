@@ -16,3 +16,4 @@ Polynomial and Spline Regression
 2. [Khan Academy](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/assessing-fit-least-squares-regression/v/influential-points-regression)
 3. [Cornell Machine Learning Course](https://www.cs.cornell.edu/courses/cs4780/2018fa/)
 4. [CMU Data Analytics Course](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/06/lecture-06.pdf)
+5. [Measures of Influence](https://cran.r-project.org/web/packages/olsrr/vignettes/influence_measures.html#:~:text=Cook's%20D%20Bar%20Plot,-Bar%20Plot%20of&text=Cook's%20distance%20was%20introduced%20by,y%20value%20of%20the%20observation.)
