@@ -244,7 +244,6 @@ ggtitle('Histogram for Model Residuals')
 #### Multiple Regression on the data
 
 ```{r}
-
 # select predictor attribute
 x =  data.matrix(airquality[, 2:6])
                 
@@ -260,11 +259,7 @@ summary(multi_model)
 
 ## Factor Variables
 
-These are categorical variables - can be either numeric or string variables.
-
-Most important advantage of converting categorical life to factor variable: they can be used in statistical modeling where they will be implemented correctly, i.e., storing data as factors ensures that the modeling functions will treat such data correctly, and then be assigned the correct number of degrees of freedom.
-
-In the above example,
+These are categorical variables. Most important advantage of converting categorical life to factor variable: they can be used in statistical modeling where they will be implemented correctly, i.e., storing data as factors ensures that the modeling functions will treat such data correctly, and then be assigned the correct number of degrees of freedom.
 
 ## Regression Diagnostics - Outliers, Influential Values, Correlated Errors
 
