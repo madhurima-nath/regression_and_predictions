@@ -258,23 +258,41 @@ multi_model = lm(y~x, data = airquality)
 summary(multi_model)
 ```
 
-```{r}
-
-```
-
 ## Factor Variables
 
-text
+These are categorical variables - can be either numeric or string variables.
+
+Most important advantage of converting categorical life to factor variable: they can be used in statistical modeling where they will be implemented correctly, i.e., storing data as factors ensures that the modeling functions will treat such data correctly, and then be assigned the correct number of degrees of freedom.
+
+In the above example,
 
 ## Regression Diagnostics - Outliers, Influential Values, Correlated Errors
 
-text
+**Outliers**: an observation which has a response value that is very different from the predicted value based on a model.
+
+**Influential values**: a data point which unduly influences any part of a regression analysis, such as the predicted responses, the estimated slope coefficients, or the hypothesis test results.
+
+-   linear regression model is sensitive to outliers and high-leverage points (data points which have extreme predictor values)
+
+-   methods to identify influential values:
+
+    1.  Difference in Fits (DFFITS)
+
+    2.  Cook's Distances
+
+-   In both methods, the following idea is used:
+
+    Delete the observations one at a time, refit the regression model on the remaining 𝑛–1n--1 observations each time. Then, compare the results using all 𝑛n observations to the results with the 𝑖i-th observation deleted to see how much influence the observation has on the analysis. This enables to assess the potential impact each data point has on the regression analysis.
+
+**Correlated errors**: errors
 
 ## Polynomial and Spline Regression
 
 text
 
 ## Additional Points to Remember
+
+Multi-collinearity:
 
 Over-fitting and under-fitting are two extreme ends of fitting a model to the data observations.
 
