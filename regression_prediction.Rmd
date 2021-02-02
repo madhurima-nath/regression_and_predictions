@@ -161,6 +161,15 @@ for (i in 1:nrow(airquality)){
 head(airquality)
 ```
 
+**Install necessary libraries**
+
+```{r}
+
+library(ggplot2)
+library(olsrr)
+library(car)
+```
+
 #### Simple Regression on the data
 
 Since simple regression requires only one predictor, let's take 'Temp' as the predictor for the target 'Ozone'.
@@ -217,9 +226,6 @@ In multiple regression settings, the $R^2$ will always increase as more variable
 **F statistic**: tells if there is a relationship between the dependent and independent variables being tested. Generally, a large F indicates a stronger relationship. The further the F-statistic is from 1 the better it is. However, how much larger the F-statistic needs to be depends on both the number of data points and the number of predictors. Generally, when the number of data points is large, an F-statistic that is only a little bit larger than 1 is already sufficient to reject the null hypothesis
 
 ```{r}
-
-library(ggplot2)
-
 p = ggplot(data = airquality, aes(x, y)) + geom_point() +
 stat_smooth(method = 'lm', col = 'dodgerblue3') +
 theme(panel.background = element_rect(fill = 'white'),
@@ -274,12 +280,19 @@ These are categorical variables. Most important advantage of converting categori
 -   methods to identify influential values:
 
     1.  Difference in Fits (DFFITS)
-
     2.  Cook's Distances
 
 -   In both methods, the following idea is used:
 
-    Delete the observations one at a time, refit the regression model on the remaining 𝑛–1n--1 observations each time. Then, compare the results using all 𝑛n observations to the results with the 𝑖i-th observation deleted to see how much influence the observation has on the analysis. This enables to assess the potential impact each data point has on the regression analysis.
+    Delete the observations one at a time, refit the regression model on the remaining $n-1$ observations each time. Then, compare the results using all $n$ observations to the results with the $i^{th}$observation deleted to see how much influence the observation has on the analysis. This enables to assess the potential impact each data point has on the regression analysis.
+
+```{r}
+
+```
+
+```{r}
+ols_plot_cooksd_chart(simple_model)
+```
 
 **Correlated errors**: errors
 
@@ -311,7 +324,6 @@ Generally, VIF \> 4 $\rightarrow$ further investigation,\
 VIF $\geq$ 10 $\rightarrow$ serious multi-collinearity.
 
 ```{r}
-library(car)
 
 vif(lm(Wind ~ Temp+Solar.R, data=airquality))
 vif(lm(Temp ~ Wind+Solar.R, data=airquality))
@@ -355,6 +367,6 @@ Frequently used techniques to reduce over-fitting:
 ## References
 
 1.  [Penn State STAT 462 Applied Regression Analysis](https://online.stat.psu.edu/stat462/node/77/)
-2.  [Khan Academy](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/assessing-fit-least-squares-regression/v/influential-points-regression))
+2.  [Khan Academy](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/assessing-fit-least-squares-regression/v/influential-points-regression)
 3.  [Cornell Machine Learning Course](https://www.cs.cornell.edu/courses/cs4780/2018fa/)
 4.  [CMU Data Analytics Course](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/06/lecture-06.pdf)
