@@ -265,6 +265,8 @@ These are categorical variables. Most important advantage of converting categori
 
 **Outliers**: an observation which has a response value that is very different from the predicted value based on a model.
 
+![](plot.png){width="551"}
+
 **Influential values**: a data point which unduly influences any part of a regression analysis, such as the predicted responses, the estimated slope coefficients, or the hypothesis test results.
 
 -   linear regression model is sensitive to outliers and high-leverage points (data points which have extreme predictor values)
@@ -283,13 +285,40 @@ These are categorical variables. Most important advantage of converting categori
 
 ## Polynomial and Spline Regression
 
-text
+**Polynomial Regression** fits a non-linear regression model between the dependent variable $y$ and the independent variable $x$ . Such a model with a single predictor is
+
+$y_{i} = \beta _{0} + \beta _{1} x + \beta _{2} x^2 +\cdots +\beta _{h} x^h + \epsilon_{i},$
+
+where $h$ is called the degree of the polynomial, i.e., $h=2$ is quadratic, $h=3$ is cubic, $h=4$ is quartic, etc. Although there is a nonlinear relationship between $y$ and $x$, polynomial regression is still considered linear regression since it is linear in the regression coefficients, i.e., the $\beta$s.
+
+Caution: Polynomials are powerful tools but they can lead to over-fitting. **Over-fitting** happens when the model is trying to fit every single data point. While doing that, it will pick up noise instead of the actual data, even though the model is getting better and better at fitting the existing data (increase in the R-squared value).
+
+**Spline Regression** is one method for testing non-linearity in the predictor variables and for modeling non-linear functions.
 
 ## Additional Points to Remember
 
-Multi-collinearity:
+**Multi-collinearity**: when two or more of the predictors in a regression model are moderately or highly correlated with one another.
 
-Over-fitting and under-fitting are two extreme ends of fitting a model to the data observations.
+Computing the ***Variance Inflation Factor*** (VIF) for each independent variable helps detect multi-collinearity. A variance inflation factor (*VIF*) quantifies how much the variance is inflated. It exists for each of the predictors in a multiple regression model. \
+For example, VIF for the estimated regression coefficient $\beta_j$ is just the factor by which the variance of $\beta_j$, denoted by $VIF_j$ is inflated by the existence of correlation among the predictor variables in the model.
+
+$$VIF_j = \frac{1}{1-R_j^{2}}$$
+
+where $R_j^2$ the $R^2$ value obtained by regressing the $j^{th}$ predictor on the remaining predictors. 
+
+A VIF of 1 $\rightarrow$ there is no correlation among the $j^{th}$ predictor and the remaining predictor variables, and hence the variance of $\beta_j$ is not inflated at all. \
+Generally, VIF \> 4 $\rightarrow$ further investigation,\
+VIF $\geq$ 10 $\rightarrow$ serious multi-collinearity.
+
+```{r}
+library(car)
+
+vif(lm(Wind ~ Temp+Solar.R, data=airquality))
+vif(lm(Temp ~ Wind+Solar.R, data=airquality))
+vif(lm(Solar.R ~ Wind+Temp, data=airquality))
+```
+
+**Over-fitting** and **under-fitting** are two extreme ends of fitting a model to the data observations.
 
 -   Under-fitting: when model doesn't capture the underlying trend from the data points. e.g.: trying to model a non-linear relationship with a linear model. This scenario is the case of high bias and low variance.
 -   Over-fitting: when model tries to fit all the data points, that it starts capturing the noise. e.g.: trying to model a quadratic relationship with a 5th order polynomial. This is the case of low bias and high variance.
