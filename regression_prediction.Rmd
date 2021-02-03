@@ -55,7 +55,7 @@ The best fitted model - one which minimizes the sum of the prediction errors/res
 #### [Linear Regression has the following assumptions:]{.ul}
 
 -   mean of the response at each value of the predictor, $x_i$, is a *linear* function of the $x_i$.
--   errors/residuals, $\epsilon_i$, are *identically and independently distributed* as normal distribution, with mean 0 and equal (unknown) variance.
+-   errors/residuals, $\epsilon_i$, are *identically and independently distributed* as normal distribution, with mean 0 and equal (unknown) variance - *homoscedasticity*.
 -   errors, $\epsilon_i$, at each value of $x_i$, are *normally distributed.*
 -   responses, $y_i$ and therefore, $\beta_i$, are *normally distributed*.
 
@@ -281,7 +281,36 @@ summary(multi_model)
 
 ## Factor Variables
 
-These are categorical variables. Most important advantage of converting categorical life to factor variable: they can be used in statistical modeling where they will be implemented correctly, i.e., storing data as factors ensures that the modeling functions will treat such data correctly, and then be assigned the correct number of degrees of freedom.
+These are categorical variables, and the interpretation of the coefficients for such predictors is different from the numerical predictors, i.e., the notion of a slope or unit change no longer makes sense when talking about a categorical variable. Both numeric and character variables can be made into factors.
+
+In the dataset above, 'Month' is a categorical variable.
+
+Most important advantage of converting categorical life to factor variable: they can be used in statistical modeling where they will be implemented correctly, i.e., storing data as factors ensures that the modeling functions will treat such data correctly, and then be assigned the correct number of degrees of freedom.
+
+Ordered factor variables - when the categories of the factor variables have a particular order and it is used to perform comparisons. (Many R models ignore ordering even if present, by default, need to turn the ordering to TRUE.)
+
+**Ways to handle factor variables**:
+
+-   Dummy variables - a variable takes either $1$, indicating the presence of an attribute or $0$, indicating the absence of that attribute. Creates $k-1$ variables for $k$ categories of factor variables.\
+    In the example, dummy variables for 'Month' would be
+
+    -   January: coded '1' if January, 0 otherwise
+    -   February: coded '1' if February, 0 otherwise etc.
+
+-   One hot encoding - similar to dummy variables, i.e., it is also dichotomous variable $0$ or $1$. Creates $k$ variables for $k$ categories of factor variables.\
+    In the example, one hot encoding would be
+
+$$\begin{matrix} Jan & Feb & Mar \\ 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{matrix}$$
+
+-   Reference coding - a reference category is named and identified as a category of comparison for the other categories, i.e., the other categories are *compared to* the reference. (By default R uses the alpha-numerically first category as the reference category.)
+
+    -   Simple coding: each group is compared to the reference group.
+
+    -   Deviation coding: compares the mean of the dependent variable for a given level to the mean of the dependent variable for the other levels of the variable.
+
+    -   Difference coding: each level is compared to the mean of the previous levels.
+
+Note: Factor variables are hard to update, so it could be a pain during data cleaning.
 
 ## Regression Diagnostics - Outliers, Influential Values, Correlated Errors
 
@@ -317,7 +346,15 @@ ols_plot_dffits(simple_model)
 ols_plot_cooksd_chart(simple_model)
 ```
 
-**Correlated errors**: errors
+**Correlated errors**: The assumptions of linear regression state that the errors/residuals are uncorrelated. If correlation exists, it means that the model has not taken into account the additional information present in the data.
+
+Easiest method to check: Plot the residuals to identify any non-random trends.
+
+```{r}
+plot(simple_model, which = 1)
+```
+
+Note: Time series problems have correlated errors.
 
 ## Polynomial and Spline Regression
 
@@ -328,6 +365,20 @@ $y_{i} = \beta _{0} + \beta _{1} x + \beta _{2} x^2 +\cdots +\beta _{h} x^h + \e
 where $h$ is called the degree of the polynomial, i.e., $h=2$ is quadratic, $h=3$ is cubic, $h=4$ is quartic, etc. Although there is a nonlinear relationship between $y$ and $x$, polynomial regression is still considered linear regression since it is linear in the regression coefficients, i.e., the $\beta$s.
 
 Caution: Polynomials are powerful tools but they can lead to over-fitting. **Over-fitting** happens when the model is trying to fit every single data point. While doing that, it will pick up noise instead of the actual data, even though the model is getting better and better at fitting the existing data (increase in the R-squared value).
+
+```{r}
+# select predictor attribute
+x =  airquality[, 'Temp']
+                
+# select target attribute
+y = airquality[, 'Ozone'] 
+
+poly_model = lm(y~poly(x, 3))
+
+summary(poly_model)
+```
+
+Note: $R^2$ values have increased ($R^2 = 0.4168$, adjusted $R^2 = 0.413$ for the simple linear regression case).
 
 **Spline Regression** is one method for testing non-linearity in the predictor variables and for modeling non-linear functions.
 
@@ -394,3 +445,4 @@ Frequently used techniques to reduce over-fitting:
 3.  [Cornell Machine Learning Course](https://www.cs.cornell.edu/courses/cs4780/2018fa/)
 4.  [CMU Data Analytics Course](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/06/lecture-06.pdf)
 5.  [Measure of Influence](https://cran.r-project.org/web/packages/olsrr/vignettes/influence_measures.html#:~:text=Cook's%20D%20Bar%20Plot,-Bar%20Plot%20of&text=Cook's%20distance%20was%20introduced%20by,y%20value%20of%20the%20observation.)
+6.  [UCLA Course - Coding Systems for Categorical Variables](https://stats.idre.ucla.edu/spss/faq/coding-systems-for-categorical-variables-in-regression-analysis-2/#SIMPLE%20EFFECT%20CODING)
