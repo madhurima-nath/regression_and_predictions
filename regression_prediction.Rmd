@@ -194,7 +194,7 @@ simple_model
 ```{r}
 
 # scatter plot between x and y
-plot(y~x)
+plot(y~x, xlab = 'Temp', ylab = 'Ozone')
 # plot the regression line
 abline(simple_model, col = 'blue', lwd = 2)
 ```
@@ -461,12 +461,7 @@ Frequently used techniques to reduce over-fitting:
 [**Regression Limitations**]{.ul}
 
 -   Unable to determine feature importance
-
-```{=html}
-<!-- -->
-```
 -   Sensitive to outliers
-
 -   Assumptions of linearity, independent predictors etc. (see assumptions section)
 
 ```{r}
