@@ -136,6 +136,7 @@ head(airquality)
 
 library(ggplot2)
 library(olsrr)
+library(splines)
 library(car)
 ```
 
@@ -373,18 +374,48 @@ x =  airquality[, 'Temp']
 # select target attribute
 y = airquality[, 'Ozone'] 
 
-poly_model = lm(y~poly(x, 3))
+poly_model = lm(y~poly(x, 3) + x)
 
 summary(poly_model)
 ```
 
 Note: $R^2$ values have increased ($R^2 = 0.4168$, adjusted $R^2 = 0.413$ for the simple linear regression case).
 
-**Spline Regression** is one method for testing non-linearity in the predictor variables and for modeling non-linear functions.
+```{r}
+plot(y~x, xlab = 'Temp', ylab = 'Ozone')
+lines(sort(x), fitted(poly_model)[order(x)], col = 'purple', lwd = 2)
+abline(simple_model, col = 'blue', lwd = 2)
+legend(55, 150, legend=c('simple reg', 'polynomial reg'),
+       col=c('blue', 'purple'), lty = 1:1, box.lty=0)
+```
+
+**Spline Regression** is one method for testing non-linearity in the predictor variables and for modeling non-linear functions. A spline is a function constructed piece-wise from polynomial functions.
+
+Instead of building one model for the full dataset, spline regression divides the data into multiple bins and fits each bin with separate model. The points where the division occurs is called *knots*.
+
+```{r}
+# select predictor attribute
+x =  airquality[, 'Temp']
+                
+# select target attribute
+y = airquality[, 'Ozone'] 
+
+spline_model = lm(y~ bs(x, knots = c(50, 75, 100)))
+
+summary(spline_model)
+```
+
+```{r}
+plot(y~x, xlab = 'Temp', ylab = 'Ozone')
+lines(sort(x), fitted(spline_model)[order(x)], col = 'purple', lwd = 2)
+abline(simple_model, col = 'blue', lwd = 2)
+legend(55, 150, legend=c('simple reg', 'spline reg'),
+       col=c('blue', 'purple'), lty = 1:1, box.lty=0)
+```
 
 ## Additional Points to Remember
 
-**Multi-collinearity**: when two or more of the predictors in a regression model are moderately or highly correlated with one another.
+[**Multi-collinearity**]{.ul}: when two or more of the predictors in a regression model are moderately or highly correlated with one another.
 
 Computing the ***Variance Inflation Factor*** (VIF) for each independent variable helps detect multi-collinearity. A variance inflation factor (*VIF*) quantifies how much the variance is inflated. It exists for each of the predictors in a multiple regression model.\
 For example, VIF for the estimated regression coefficient $\beta_j$ is just the factor by which the variance of $\beta_j$, denoted by $VIF_j$ is inflated by the existence of correlation among the predictor variables in the model.
@@ -404,7 +435,7 @@ vif(lm(Temp ~ Wind+Solar.R, data=airquality))
 vif(lm(Solar.R ~ Wind+Temp, data=airquality))
 ```
 
-**Over-fitting** and **under-fitting** are two extreme ends of fitting a model to the data observations.
+[**Over-fitting**]{.ul} and [**under-fitting**]{.ul} are two extreme ends of fitting a model to the data observations.
 
 -   Under-fitting: when model doesn't capture the underlying trend from the data points. e.g.: trying to model a non-linear relationship with a linear model. This scenario is the case of high bias and low variance.
 -   Over-fitting: when model tries to fit all the data points, that it starts capturing the noise. e.g.: trying to model a quadratic relationship with a 5th order polynomial. This is the case of low bias and high variance.
@@ -427,6 +458,17 @@ Frequently used techniques to reduce over-fitting:
 -   Early stopping during the training phase (keep an eye over the loss over the training period as soon as loss begins to increase stop training).
 -   Ridge Regularization and Lasso Regularization - penalize for additional complexity
 
+[**Regression Limitations**]{.ul}
+
+-   Unable to determine feature importance
+
+```{=html}
+<!-- -->
+```
+-   Sensitive to outliers
+
+-   Assumptions of linearity, independent predictors etc. (see assumptions section)
+
 ```{r}
 
 # split into train-test set
@@ -446,3 +488,5 @@ Frequently used techniques to reduce over-fitting:
 4.  [CMU Data Analytics Course](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/06/lecture-06.pdf)
 5.  [Measure of Influence](https://cran.r-project.org/web/packages/olsrr/vignettes/influence_measures.html#:~:text=Cook's%20D%20Bar%20Plot,-Bar%20Plot%20of&text=Cook's%20distance%20was%20introduced%20by,y%20value%20of%20the%20observation.)
 6.  [UCLA Course - Coding Systems for Categorical Variables](https://stats.idre.ucla.edu/spss/faq/coding-systems-for-categorical-variables-in-regression-analysis-2/#SIMPLE%20EFFECT%20CODING)
+7.  [Princeton Spline Regression Example](https://data.princeton.edu/eco572/smoothing2)
+8.  [UT Dallas Spline Regression Example](https://personal.utdallas.edu/~Andrew.Wheeler/Splines.html)
