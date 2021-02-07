@@ -44,20 +44,17 @@ Summarize:
 -   $\mathbf{X}$ - independent predictors
 -   $\mathbf{y}$ - dependent response
 -   $\boldsymbol{\beta}$ - regression coefficients
--   linear relationship between the response function and regression coefficients
--   distribution of $\mathbf{X}$ is arbitrary
--   distribution of estimated coefficients, $\widehat{\boldsymbol{\beta}}$ will depend on the distribution of predicted responses, $\widehat{\mathbf{y}}$
+-   linear with respect to regression coefficients
+-   distribution of estimated coefficients, $\widehat{\boldsymbol{\beta}}$ will depend on the distribution of $y$
 
-The best fitted model - one which minimizes the sum of the prediction errors/residuals, i.e., minimizes $\sum_{i=0}^n e_i = \sum_{i=0}^n (y_i - \widehat{y}_i)^2$
+The best fitted model - one which minimizes the sum of squared prediction errors/residuals, i.e., minimizes $\sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n (y_i - \widehat{y}_i)^2$
 
 (i.e., minimizes the least squared error). Here $\widehat{y}_i$ are the predicted responses.
 
 #### [Linear Regression has the following assumptions:]{.ul}
 
--   mean of the response at each value of the predictor, $x_i$, is a *linear* function of the $x_i$.
--   errors/residuals, $\epsilon_i$, are *identically and independently distributed* as normal distribution, with mean 0 and equal (unknown) variance - *homoscedasticity*.
--   errors, $\epsilon_i$, at each value of $x_i$, are *normally distributed.*
--   responses, $y_i$ and therefore, $\beta_i$, are *normally distributed*.
+-   errors/residuals, $\epsilon_i$, are *identically and independently distributed*
+-   errors/residuals, $\epsilon_i$, are normally distributed, with mean 0 and equal (unknown) variance - *homoscedasticity*.
 
 ### Simple Linear Regression
 
@@ -67,7 +64,7 @@ ${y}_i = \beta_0 + \beta_1 x_i + \epsilon_i \qquad i = 1,…, n$
 
 This is the equation of a straight line, recall $y = mx +c$, where $m$ is the slope and $c$ is the intercept.
 
-Minimization $\rightarrow$ take derivatives of $\sum_{i=1}^n e_i$ w.r.t $\beta_0$ and $\beta_1$, set to 0 and solve for $\beta_0$ and $\beta_1$.
+Minimization $\rightarrow$ take derivatives of $\sum_{i=1}^n \epsilon_i^2$ w.r.t $\beta_0$ and $\beta_1$, set to 0 and solve for $\beta_0$ and $\beta_1$.
 
 $\widehat\beta_0 = \overline{y} - \widehat\beta_1 \overline{x}$
 
@@ -87,9 +84,9 @@ $\widehat\beta_1$ is the amount by which the mean response vary for every one un
 
 Multiple linear regression is a generalized version of simple regression, where more than one independent variables are used. . The basic model for multiple linear regression is as discussed above:
 
-${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \mathbf{x}_{i}^{\mathsf {T}}{\boldsymbol {\beta }} + \epsilon_{i},\qquad i=1,\ldots ,n,$
+${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \mathbf{X}_{i}^{\mathsf {T}}{\boldsymbol {\beta }} + \epsilon_{i},\qquad i=1,\ldots ,n,$
 
-The solution for the coefficients can be easily calculated using the matrix formulation: $\hat{\boldsymbol\beta} = (\mathbf{x}^T \mathbf{x})^{-1} \mathbf{x}^T \mathbf{y}$
+The solution for the coefficients can be easily calculated using the matrix formulation: $\hat{\boldsymbol\beta} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}$
 
 Generally, all real-world problems involve multiple predictors.
 
@@ -111,15 +108,14 @@ Data: New York air quality data in R ([details about dataset](https://stat.ethz.
 
 There are 6 variables - our target $\rightarrow$ attribute 'ozone'.
 
-$lm(formula,data)$ function creates the relationship model between the predictor and the response variable, where the parameters used are -
+`lm()` function creates the relationship model between the predictor and the response variable, where the parameters used are -
 
--   formula is a symbol presenting the relation between x and y.
--   data is the vector on which the formula will be applied.
+-   formula is a symbol presenting the relation between $x$ and $y$.
 
-$predict(object, newdata)$ function is used for prediction, where the parameters used −
+`predict(object, newdata)` function is used for prediction, where the parameters used −
 
--   object is the formula which is already created using the lm() function.
--   newdata is the vector containing the new value for predictor variable.
+-   object is the formula which is already created using the `lm()` function.
+-   newdata is the vector/matrix containing the new value for predictor variable.
 
 ```{r}
 data('airquality')
@@ -207,18 +203,18 @@ summary(simple_model)
 
 **Call**: Formula used to fit the data.
 
-**Residuals**: Difference between the actual observed response values and the response values that the model predicted. This section broken into 5 summary points. A symmetrical distribution across these points on the mean value zero (0) tells how well the model fits the data. In the example, we can see that the distribution of the residuals do not appear to be strongly symmetrical. That means that the model predicts certain points that fall far away from the actual observed points. Plotting the residuals will help check whether they are normally distributed.
+**Residuals**: Difference between the actual observed response values and the response values that the model predicted. This section broken into 5 summary points, which tells the distribution of the residuals. Plotting the residuals will help check whether they are normally distributed.
 
 **Coefficients**: This section tells the coefficients of the model. In simple linear regression, the coefficients are two unknown constants that represent the *intercept* and *slope* terms in the linear model.
 
-The coefficient standard error measures the average amount that the coefficient estimates vary from the actual average value of our response variable.
+The coefficient standard error measures the standard deviation of the coefficient estimates.
 
 The coefficient t-value is a measure of how many standard deviations the coefficient estimate is far away from 0. The farther away from zero indicates that the null hypothesis (there is no relationship between the predictor and the response) can be rejected - that is, declare a linear relationship between ozone numbers and temperature exists.
 
 The Pr(\>\|t\|) relates to the probability of observing any value equal or larger than $t$. A small p-value indicates that it is unlikely to observe a relationship between the predictor (temperature) and response (ozone) variables due to chance. Typically, a p-value of 5% or less is a good cut-off point. In this example, the p-values are very close to zero.\
 Note: 'Signif. Codes' associated to each estimate. Three stars (or asterisks) represent a highly significant p-value. Consequently, a small p-value for the intercept and the slope indicates that the null hypothesis can be rejected.
 
-**Residual Standard Error**: measure of the quality of a linear regression fit. Theoretically, every linear model is assumed to contain an error term. The residual standard error is the average amount that the response will deviate from the true regression line.
+**Residual Standard Error**: measure of the quality of a linear regression fit. Theoretically, every linear model is assumed to contain an error term. The residual standard error is the average amount that the response will deviate from the true regression line. This gives an estimate for the sigma squared for the residuals.
 
 **Multiple R-squared, Adjusted R-squared**: R-squared statistic provides a measure of how well the model is fitting the actual data. It takes the form of a proportion of variance, lies between 0 and 1.
 
@@ -236,7 +232,7 @@ axis.line.y=element_line()) + ggtitle('Linear Model Fitted to Data')
 p + labs(x = 'Temp', y = 'Ozone')
 ```
 
-The gray shading around the line represents a confidence interval of 0.95, the default for the stat_smooth() function, which smoothes data to make patterns easier to visualize. This 0.95 confidence interval is the probability that the true linear model for the temperature and ozone will lie within the confidence interval of the regression model fitted to the data. There is still variability within the observations, even though the model fits the data well.
+The gray shading around the line represents a confidence interval of 95%. In this example, the 95% confidence interval is the probability that the estimated regression line for the temperature will lie within this shaded region approximately 95 times if the experiment is repeated 100 times. There is still variability within the observations, even though the model fits the data well.
 
 **Check how residuals are distributed**:
 
@@ -248,7 +244,9 @@ The gray shading around the line represents a confidence interval of 0.95, the d
 
 ```{r}
 ggplot(data = airquality, aes(simple_model$residuals)) +
-geom_histogram(bins = 50, color = 'black', fill = 'grey') +
+geom_histogram(aes(y=..density..), binwidth = 5, color = 'black', fill = 'grey') +
+  geom_density(alpha=.2, fill='lightpink') +
+  
 theme(panel.background = element_rect(fill = 'white'),
 axis.line.x=element_line(),
 axis.line.y=element_line()) +
@@ -359,11 +357,11 @@ Note: Time series problems have correlated errors.
 
 ## Polynomial and Spline Regression
 
-**Polynomial Regression** fits a non-linear regression model between the dependent variable $y$ and the independent variable $x$ . Such a model with a single predictor is
+**Polynomial Regression** fits a polynomial relationship between the dependent variable $y$ and the independent variable $x$ . Such a model with a single predictor is
 
 $y_{i} = \beta _{0} + \beta _{1} x + \beta _{2} x^2 +\cdots +\beta _{h} x^h + \epsilon_{i},$
 
-where $h$ is called the degree of the polynomial, i.e., $h=2$ is quadratic, $h=3$ is cubic, $h=4$ is quartic, etc. Although there is a nonlinear relationship between $y$ and $x$, polynomial regression is still considered linear regression since it is linear in the regression coefficients, i.e., the $\beta$s.
+where $h$ is called the degree of the polynomial, i.e., $h=2$ is quadratic, $h=3$ is cubic, $h=4$ is quartic, etc. Although there is a non-linear relationship between $y$ and $x$, polynomial regression is still considered linear regression since it is linear in the regression coefficients, i.e., the $\beta$s.
 
 Caution: Polynomials are powerful tools but they can lead to over-fitting. **Over-fitting** happens when the model is trying to fit every single data point. While doing that, it will pick up noise instead of the actual data, even though the model is getting better and better at fitting the existing data (increase in the R-squared value).
 
@@ -374,7 +372,7 @@ x =  airquality[, 'Temp']
 # select target attribute
 y = airquality[, 'Ozone'] 
 
-poly_model = lm(y~poly(x, 3) + x)
+poly_model = lm(y~poly(x, 3))
 
 summary(poly_model)
 ```
@@ -400,7 +398,7 @@ x =  airquality[, 'Temp']
 # select target attribute
 y = airquality[, 'Ozone'] 
 
-spline_model = lm(y~ bs(x, knots = c(50, 75, 100)))
+spline_model = lm(y~ bs(x, knots = c(65, 75, 85)))
 
 summary(spline_model)
 ```
@@ -453,18 +451,16 @@ Frequently used techniques to reduce under-fitting:
 
 Frequently used techniques to reduce over-fitting:
 
--   Increase training data
 -   Reduce model complexity
 -   Early stopping during the training phase (keep an eye over the loss over the training period as soon as loss begins to increase stop training).
 -   Ridge Regularization and Lasso Regularization - penalize for additional complexity
 
 [**Regression Limitations**]{.ul}
 
--   Unable to determine feature importance
 -   Sensitive to outliers
 -   Assumptions of linearity, independent predictors etc. (see assumptions section)
 
-```{r}
+```{r echo = FALSE}
 
 # split into train-test set
 #library(caTools)
