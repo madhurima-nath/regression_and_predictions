@@ -1,14 +1,17 @@
-This contains the notebook for the WW Code webinar.
-Add details later.
+# WWCode Data Science: Statistics Workshop Series - Statistics in Data Science
 
-Simple Linear Regression		
-Multiple Linear Regression		
-Prediction using Regression		
-Factor variables in Regression		
-Interpreting the Regression Equation		
-Regression Diagnostics - Outliers, influential values, Correlated errors		
-Polynomial and Spline Regression
+## Week 4: Regression and Predictions
 
+The following topics are covered in the session. 
+
+- Simple Linear Regression		
+- Multiple Linear Regression		
+- Real-world Example	
+- Factor variables in Regression		
+- Regression Diagnostics - Outliers, influential values, Correlated errors		
+- Polynomial and Spline Regression
+
+The New York air quality data is used for the analysis in the [R notebook](). 
 
 
 ## References:
