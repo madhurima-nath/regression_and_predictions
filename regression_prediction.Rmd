@@ -15,13 +15,13 @@ This notebook contains the following topics:
 
 -   [Real-world Example using Regression]
 
--   [Factor Variables]
+-   Factor Variables
 
--   [Regression Diagnostics - Outliers, Influential Values, Correlated Errors]
+-   Regression Diagnostics - Outliers, Influential Values, Correlated Errors
 
--   [Polynomial and Spline Regression]
+-   Polynomial and Spline Regression
 
--   [Additional Points to Remember]
+-   Additional Points to Remember
 
 ## Linear Regression
 
@@ -455,7 +455,35 @@ Frequently used techniques to reduce over-fitting:
 -   Early stopping during the training phase (keep an eye over the loss over the training period as soon as loss begins to increase stop training).
 -   Ridge Regularization and Lasso Regularization - penalize for additional complexity
 
-[**Regression Limitations**]{.ul}
+### Ridge and Lasso Regularization
+
+Regularization fits a model containing all $p$ predictors using a technique that constrains or regularizes the coefficient estimates, or shrinks the coefficient estimates to zero.
+
+For every model, the mean squared error in estimated target is the sum of **Variance**, **Bias** and in-built **random error in estimation**, $\epsilon$.
+
+To [minimize]{.ul} the expected error, a model with **low variance** and **low bias** is ***ideal***.
+
+[**Ridge Regularization**]{.ul} coefficients are values that minimize
+
+$\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p \beta_j^2$
+
+where $\lambda \geq 0$ is the penalty term which controls the relative impact of the two terms on the coefficient estimates.
+
+-   $\lambda \rightarrow 0$ : least square model with all $p$ predictors
+
+-   $\lambda \rightarrow \infty$ : null model with all no predictors
+
+-   works best in situations where least squares estimates have **high variance**
+
+-   best to apply it after standardizing the predictors (so that they are on the same scale)
+
+-   includes all $p$ predictors and although increasing $\lambda$ reduces the magnitudes of the coefficient estimates, but it doesn't exclude them (unless $\lambda = \infty$)
+
+-   as $\lambda$ increases, variance decreases and bias increases
+
+-   as $\lambda$ increases, $L^2 norm$ of $\beta$ coefficients will always decrease
+
+#### [**Regression Limitations**]{.ul}
 
 -   Sensitive to outliers
 -   Assumptions of linearity, independent predictors etc. (see assumptions section)
