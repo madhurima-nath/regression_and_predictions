@@ -15,13 +15,13 @@ This notebook contains the following topics:
 
 -   [Real-world Example using Regression]
 
--   Factor Variables
+-   [Factor Variables]
 
--   Regression Diagnostics - Outliers, Influential Values, Correlated Errors
+-   [Regression Diagnostics - Outliers, Influential Values, Correlated Errors]
 
--   Polynomial and Spline Regression
+-   [Polynomial and Spline Regression]
 
--   Additional Points to Remember
+-   [Additional Points to Remember]
 
 ## Linear Regression
 
@@ -463,7 +463,7 @@ For every model, the mean squared error in estimated target is the sum of **Vari
 
 To [minimize]{.ul} the expected error, a model with **low variance** and **low bias** is ***ideal***.
 
-[**Ridge Regularization**]{.ul} coefficients are values that minimize
+[**Ridge Regression/L2 Regularization**]{.ul} coefficients are values that minimize
 
 $\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p \beta_j^2$
 
