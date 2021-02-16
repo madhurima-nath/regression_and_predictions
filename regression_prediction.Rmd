@@ -453,11 +453,15 @@ Frequently used techniques to reduce over-fitting:
 
 -   Reduce model complexity
 -   Early stopping during the training phase (keep an eye over the loss over the training period as soon as loss begins to increase stop training).
--   Ridge Regularization and Lasso Regularization - penalize for additional complexity
+-   Ridge and Lasso Regression - penalize for additional complexity
 
-### Ridge and Lasso Regularization
+### Ridge and Lasso Regression
 
-Regularization fits a model containing all $p$ predictors using a technique that constrains or regularizes the coefficient estimates, or shrinks the coefficient estimates to zero.
+Regularization fits a model containing all $p$ predictors using a technique that constrains or regularizes the coefficient estimates, or shrinks the coefficient estimates to zero. The tuning/penalty parameter is denoted by $\lambda$.
+
+-   $\lambda \rightarrow 0$ : least square model with all $p$ predictors
+
+-   $\lambda \rightarrow \infty$ : null model with all no predictors
 
 For every model, the mean squared error in estimated target is the sum of **Variance**, **Bias** and in-built **random error in estimation**, $\epsilon$.
 
@@ -469,10 +473,6 @@ $\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=
 
 where $\lambda \geq 0$ is the penalty term which controls the relative impact of the two terms on the coefficient estimates.
 
--   $\lambda \rightarrow 0$ : least square model with all $p$ predictors
-
--   $\lambda \rightarrow \infty$ : null model with all no predictors
-
 -   works best in situations where least squares estimates have **high variance**
 
 -   best to apply it after standardizing the predictors (so that they are on the same scale)
@@ -481,7 +481,21 @@ where $\lambda \geq 0$ is the penalty term which controls the relative impact of
 
 -   as $\lambda$ increases, variance decreases and bias increases
 
--   as $\lambda$ increases, $L^2 norm$ of $\beta$ coefficients will always decrease
+-   as $\lambda$ increases, $L_2$ $norm$ of $\beta$ coefficients decrease
+
+[**Lasso Regression/L1 Regularization**]{.ul} coefficients are values that minimize
+
+$\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=1}^p |\beta_j|$
+
+where $\lambda \geq 0$ is the penalty term which controls the relative impact of the two terms on the coefficient estimates.
+
+-   shrinks the coefficients towards 0
+
+-   increasing $\lambda$ forces some of the coefficients to be exactly 0
+
+-   as $\lambda$ increases, $L_1$ $norm$ of $\beta$ coefficients decrease
+
+-   since the coefficients are reduced to 0, Lasso regression can perform variable selection, which yields sparse models
 
 #### [**Regression Limitations**]{.ul}
 
