@@ -417,9 +417,9 @@ Frequently used techniques to reduce over-fitting:
 
 Regularization fits a model containing all $p$ predictors using a technique that constrains or regularizes the coefficient estimates, or shrinks the coefficient estimates to zero. The tuning/penalty parameter is denoted by $\lambda$.
 
--   $\lambda \rightarrow 0$ : least square model with all $p$ predictors
+-   $\lambda = 0$ : least square model with all $p$ predictors
 
--   $\lambda \rightarrow \infty$ : null model with all no predictors
+-   $\lambda = \infty$ : null model with all no predictors
 
 For every model, the mean squared error in estimated target is the sum of **Variance**, **Bias** and in-built **random error in estimation**, $\epsilon$.
 
