@@ -25,7 +25,7 @@ This notebook contains the following topics:
 
     -   [Bias-Variance Trade-off]
 
-    -   [Ridge and Lasso Regression]
+    -   [Regularization - Ridge and Lasso Regression]
 
 -   [Polynomial and Spline Regression]
 
@@ -413,7 +413,7 @@ Frequently used techniques to reduce over-fitting:
 -   Early stopping during the training phase (keep an eye over the loss over the training period as soon as loss begins to increase stop training).
 -   Ridge and Lasso Regression - penalize for additional complexity
 
-### Ridge and Lasso Regression
+### Regularization - Ridge and Lasso Regression
 
 Regularization fits a model containing all $p$ predictors using a technique that constrains or regularizes the coefficient estimates, or shrinks the coefficient estimates to zero. The tuning/penalty parameter is denoted by $\lambda$.
 
@@ -431,15 +431,15 @@ $\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=
 
 where $\lambda \geq 0$ is the penalty term which controls the relative impact of the two terms on the coefficient estimates.
 
--   works best in situations where least squares estimates have **high variance**
-
--   best to apply it after standardizing the predictors (so that they are on the same scale)
-
 -   includes all $p$ predictors and although increasing $\lambda$ reduces the magnitudes of the coefficient estimates, but it doesn't exclude them (unless $\lambda = \infty$)
 
 -   as $\lambda$ increases, variance decreases and bias increases
 
 -   as $\lambda$ increases, $L_2$ $norm$ of $\beta$ coefficients decrease
+
+-   works best in situations where least squares estimates have **high variance**
+
+-   best to apply it after standardizing the predictors (so that they are on the same scale)
 
 [**Lasso Regression/L1 Regularization**]{.ul} coefficients are values that minimize
 
