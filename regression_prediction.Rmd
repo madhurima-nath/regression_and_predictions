@@ -19,9 +19,15 @@ This notebook contains the following topics:
 
 -   [Regression Diagnostics - Outliers, Influential Values, Correlated Errors]
 
--   [Polynomial and Spline Regression]
-
 -   [Additional Points to Remember]
+
+    -   [Multi-collinearity]
+
+    -   [Bias-Variance Trade-off]
+
+    -   [Ridge and Lasso Regression]
+
+-   [Polynomial and Spline Regression]
 
 ## Linear Regression
 
@@ -278,6 +284,10 @@ multi_model = lm(y~x, data = airquality)
 summary(multi_model)
 ```
 
+## Q&A
+
+Questions?
+
 ## Factor Variables
 
 These are categorical variables, and the interpretation of the coefficients for such predictors is different from the numerical predictors, i.e., the notion of a slope or unit change no longer makes sense when talking about a categorical variable. Both numeric and character variables can be made into factors.
@@ -355,65 +365,11 @@ plot(simple_model, which = 1)
 
 Note: Time series problems have correlated errors.
 
-## Polynomial and Spline Regression
-
-**Polynomial Regression** fits a polynomial relationship between the dependent variable $y$ and the independent variable $x$ . Such a model with a single predictor is
-
-$y_{i} = \beta _{0} + \beta _{1} x + \beta _{2} x^2 +\cdots +\beta _{h} x^h + \epsilon_{i},$
-
-where $h$ is called the degree of the polynomial, i.e., $h=2$ is quadratic, $h=3$ is cubic, $h=4$ is quartic, etc. Although there is a non-linear relationship between $y$ and $x$, polynomial regression is still considered linear regression since it is linear in the regression coefficients, i.e., the $\beta$s.
-
-Caution: Polynomials are powerful tools but they can lead to over-fitting. **Over-fitting** happens when the model is trying to fit every single data point. While doing that, it will pick up noise instead of the actual data, even though the model is getting better and better at fitting the existing data (increase in the R-squared value).
-
-```{r}
-# select predictor attribute
-x =  airquality[, 'Temp']
-                
-# select target attribute
-y = airquality[, 'Ozone'] 
-
-poly_model = lm(y~poly(x, 3))
-
-summary(poly_model)
-```
-
-Note: $R^2$ values have increased ($R^2 = 0.4168$, adjusted $R^2 = 0.413$ for the simple linear regression case).
-
-```{r}
-plot(y~x, xlab = 'Temp', ylab = 'Ozone')
-lines(sort(x), fitted(poly_model)[order(x)], col = 'purple', lwd = 2)
-abline(simple_model, col = 'blue', lwd = 2)
-legend(55, 150, legend=c('simple reg', 'polynomial reg'),
-       col=c('blue', 'purple'), lty = 1:1, box.lty=0)
-```
-
-**Spline Regression** is one method for testing non-linearity in the predictor variables and for modeling non-linear functions. A spline is a function constructed piece-wise from polynomial functions.
-
-Instead of building one model for the full dataset, spline regression divides the data into multiple bins and fits each bin with separate model. The points where the division occurs is called *knots*.
-
-```{r}
-# select predictor attribute
-x =  airquality[, 'Temp']
-                
-# select target attribute
-y = airquality[, 'Ozone'] 
-
-spline_model = lm(y~ bs(x, knots = c(65, 75, 85)))
-
-summary(spline_model)
-```
-
-```{r}
-plot(y~x, xlab = 'Temp', ylab = 'Ozone')
-lines(sort(x), fitted(spline_model)[order(x)], col = 'purple', lwd = 2)
-abline(simple_model, col = 'blue', lwd = 2)
-legend(55, 150, legend=c('simple reg', 'spline reg'),
-       col=c('blue', 'purple'), lty = 1:1, box.lty=0)
-```
-
 ## Additional Points to Remember
 
-[**Multi-collinearity**]{.ul}: when two or more of the predictors in a regression model are moderately or highly correlated with one another.
+### Multi-collinearity 
+
+When two or more of the predictors in a regression model are moderately or highly correlated with one another.
 
 Computing the ***Variance Inflation Factor*** (VIF) for each independent variable helps detect multi-collinearity. A variance inflation factor (*VIF*) quantifies how much the variance is inflated. It exists for each of the predictors in a multiple regression model.\
 For example, VIF for the estimated regression coefficient $\beta_j$ is just the factor by which the variance of $\beta_j$, denoted by $VIF_j$ is inflated by the existence of correlation among the predictor variables in the model.
@@ -433,14 +389,16 @@ vif(lm(Temp ~ Wind+Solar.R, data=airquality))
 vif(lm(Solar.R ~ Wind+Temp, data=airquality))
 ```
 
+### Bias-Variance Trade-off
+
+\- Bias: it is the error from incorrect assumptions in the learning algorithm - under-fitting.
+
+\- Variance: it is the error from sensitivity to small fluctuations in the training set - over-fitting.
+
 [**Over-fitting**]{.ul} and [**under-fitting**]{.ul} are two extreme ends of fitting a model to the data observations.
 
 -   Under-fitting: when model doesn't capture the underlying trend from the data points. e.g.: trying to model a non-linear relationship with a linear model. This scenario is the case of high bias and low variance.
 -   Over-fitting: when model tries to fit all the data points, that it starts capturing the noise. e.g.: trying to model a quadratic relationship with a 5th order polynomial. This is the case of low bias and high variance.
-
-\- Bias: it is the error from incorrect assumptions in the learning algorithm.
-
-\- Variance: it is the error from sensitivity to small fluctuations in the training set.
 
 Frequently used techniques to reduce under-fitting:
 
@@ -496,6 +454,66 @@ where $\lambda \geq 0$ is the penalty term which controls the relative impact of
 -   as $\lambda$ increases, $L_1$ $norm$ of $\beta$ coefficients decrease
 
 -   since the coefficients are reduced to 0, Lasso regression can perform variable selection, which yields sparse models
+
+[**Use Case**]{.ul}
+
+## Polynomial and Spline Regression {data-link="Polynomial and Spline Regression"}
+
+**Polynomial Regression** fits a polynomial relationship between the dependent variable $y$ and the independent variable $x$ . Such a model with a single predictor is
+
+$y_{i} = \beta _{0} + \beta _{1} x + \beta _{2} x^2 +\cdots +\beta _{h} x^h + \epsilon_{i},$
+
+where $h$ is called the degree of the polynomial, i.e., $h=2$ is quadratic, $h=3$ is cubic, $h=4$ is quartic, etc. Although there is a non-linear relationship between $y$ and $x$, polynomial regression is still considered linear regression since it is linear in the regression coefficients, i.e., the $\beta$s.
+
+Caution: Polynomials are powerful tools but they can lead to over-fitting. **Over-fitting** happens when the model is trying to fit every single data point. While doing that, it will pick up noise instead of the actual data, even though the model is getting better and better at fitting the existing data (increase in the R-squared value).
+
+```{r}
+# select predictor attribute
+x =  airquality[, 'Temp']
+                
+# select target attribute
+y = airquality[, 'Ozone'] 
+
+poly_model = lm(y~poly(x, 3))
+
+summary(poly_model)
+```
+
+Note: $R^2$ values have increased ($R^2 = 0.4168$, adjusted $R^2 = 0.413$ for the simple linear regression case).
+
+```{r}
+plot(y~x, xlab = 'Temp', ylab = 'Ozone')
+lines(sort(x), fitted(poly_model)[order(x)], col = 'purple', lwd = 2)
+abline(simple_model, col = 'blue', lwd = 2)
+legend(55, 150, legend=c('simple reg', 'polynomial reg'),
+       col=c('blue', 'purple'), lty = 1:1, box.lty=0)
+```
+
+**Spline Regression** is one method for testing non-linearity in the predictor variables and for modeling non-linear functions. A spline is a function constructed piece-wise from polynomial functions.
+
+Instead of building one model for the full dataset, spline regression divides the data into multiple bins and fits each bin with separate model. The points where the division occurs is called *knots*.
+
+```{r}
+# select predictor attribute
+x =  airquality[, 'Temp']
+                
+# select target attribute
+y = airquality[, 'Ozone'] 
+
+spline_model = lm(y~ bs(x, knots = c(65, 75, 85)))
+
+summary(spline_model)
+```
+
+```{r}
+plot(y~x, xlab = 'Temp', ylab = 'Ozone')
+lines(sort(x), fitted(spline_model)[order(x)], col = 'purple', lwd = 2)
+abline(simple_model, col = 'blue', lwd = 2)
+legend(55, 150, legend=c('simple reg', 'spline reg'),
+       col=c('blue', 'purple'), lty = 1:1, box.lty=0)
+```
+
+##  {data-link="Additional Points to Remember"}
 
 #### [**Regression Limitations**]{.ul}
 
