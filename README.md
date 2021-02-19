@@ -11,7 +11,7 @@ The following topics are covered in the session.
 - Regression Diagnostics - Outliers, influential values, Correlated errors		
 - Polynomial and Spline Regression
 
-The New York air quality data is used for the analysis in the [R notebook](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_prediction.Rmd). 
+The New York air quality data ([details about dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/airquality.html)) is used for the analysis in the [R notebook](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_prediction.Rmd). 
 
 
 ## References:
