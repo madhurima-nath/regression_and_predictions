@@ -29,6 +29,8 @@ This notebook contains the following topics:
 
 -   [Polynomial and Spline Regression]
 
+<br>
+
 ## Linear Regression
 
 [**Aim**]{.ul}: to establish a linear relationship (a mathematical formula) between the predictor variable(s) and the response variable, to estimate the value of the response (outcome of dependent) variable $y$, when only the predictors (explanatory or independent variables) $x$ values are known.
@@ -57,10 +59,14 @@ The best fitted model - one which minimizes the sum of squared prediction errors
 
 (i.e., minimizes the least squared error). Here $\widehat{y}_i$ are the predicted responses.
 
+<br> <br>
+
 #### [Linear Regression has the following assumptions:]{.ul}
 
 -   errors/residuals, $\epsilon_i$, are *identically and independently distributed*
 -   errors/residuals, $\epsilon_i$, are normally distributed, with mean 0 and equal (unknown) variance - *homoscedasticity*.
+
+<br> <br>
 
 ### Simple Linear Regression
 
@@ -86,6 +92,8 @@ $\widehat\beta_0$ tells the estimated regression equation at $x = 0$, if the 'sc
 
 $\widehat\beta_1$ is the amount by which the mean response vary for every one unit increase in $x$.
 
+<br> <br>
+
 ### Multiple Linear Regression
 
 Multiple linear regression is a generalized version of simple regression, where more than one independent variables are used. . The basic model for multiple linear regression is as discussed above:
@@ -95,6 +103,8 @@ ${y}_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+ \epsilon_{i} = \m
 The solution for the coefficients can be easily calculated using the matrix formulation: $\hat{\boldsymbol\beta} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}$
 
 Generally, all real-world problems involve multiple predictors.
+
+<br> <br> <br>
 
 ## Real-world Example using Regression
 
@@ -114,6 +124,8 @@ Data: New York air quality data in R ([details about dataset](https://stat.ethz.
 
 There are 6 variables - our target $\rightarrow$ attribute 'ozone'.
 
+<br>
+
 `lm()` function creates the relationship model between the predictor and the response variable, where the parameters used are -
 
 -   formula is a symbol presenting the relation between $x$ and $y$.
@@ -132,6 +144,8 @@ str(airquality)
 head(airquality)
 ```
 
+<br>
+
 **Install necessary libraries**
 
 ```{r}
@@ -142,6 +156,8 @@ library(glmnet)
 library(splines)
 library(car)
 ```
+
+<br>
 
 #### Exploratory Analysis and Pre-processing the data
 
@@ -173,6 +189,8 @@ for (i in 1:nrow(airquality)){
 ```{r}
 head(airquality)
 ```
+
+<br> <br>
 
 #### Simple Regression on the data
 
@@ -206,11 +224,17 @@ abline(simple_model, col = 'blue', lwd = 2)
 summary(simple_model)
 ```
 
+<br>
+
 #### Interpretation of the output
 
 **Call**: Formula used to fit the data.
 
+<br>
+
 **Residuals**: Difference between the actual observed response values and the response values that the model predicted. This section broken into 5 summary points, which tells the distribution of the residuals. Plotting the residuals will help check whether they are normally distributed.
+
+<br>
 
 **Coefficients**: This section tells the coefficients of the model. In simple linear regression, the coefficients are two unknown constants that represent the *intercept* and *slope* terms in the linear model.
 
@@ -221,11 +245,17 @@ The coefficient t-value is a measure of how many standard deviations the coeffic
 The Pr(\>\|t\|) relates to the probability of observing any value equal or larger than $t$. A small p-value indicates that it is unlikely to observe a relationship between the predictor (temperature) and response (ozone) variables due to chance. Typically, a p-value of 5% or less is a good cut-off point. In this example, the p-values are very close to zero.\
 Note: 'Signif. Codes' associated to each estimate. Three stars (or asterisks) represent a highly significant p-value. Consequently, a small p-value for the intercept and the slope indicates that the null hypothesis can be rejected.
 
+<br>
+
 **Residual Standard Error**: measure of the quality of a linear regression fit. Theoretically, every linear model is assumed to contain an error term. The residual standard error is the average amount that the response will deviate from the true regression line. This gives an estimate for the sigma squared for the residuals.
+
+<br>
 
 **Multiple R-squared, Adjusted R-squared**: R-squared statistic provides a measure of how well the model is fitting the actual data. It takes the form of a proportion of variance, lies between 0 and 1.
 
 In multiple regression settings, the $R^2$ will always increase as more variables are included in the model. That's why the adjusted $R^2$ is the preferred measure as it adjusts for the number of variables considered.
+
+<br>
 
 **F statistic**: tells if there is a relationship between the dependent and independent variables being tested. Generally, a large F indicates a stronger relationship. The further the F-statistic is from 1 the better it is. However, how much larger the F-statistic needs to be depends on both the number of data points and the number of predictors. Generally, when the number of data points is large, an F-statistic that is only a little bit larger than 1 is already sufficient to reject the null hypothesis
 
@@ -240,6 +270,8 @@ p + labs(x = 'Temp', y = 'Ozone')
 ```
 
 The gray shading around the line represents a confidence interval of 95%. In this example, the 95% confidence interval is the probability that the estimated regression line for the temperature will lie within this shaded region approximately 95 times if the experiment is repeated 100 times. There is still variability within the observations, even though the model fits the data well.
+
+<br>
 
 **Check how residuals are distributed**:
 
@@ -269,6 +301,8 @@ plot(simple_model, which = 2)
 ols_plot_resid_stand(simple_model)
 ```
 
+<br> <br>
+
 #### Multiple Regression on the data
 
 ```{r}
@@ -285,9 +319,13 @@ multi_model = lm(y~x, data = airquality)
 summary(multi_model)
 ```
 
+<br> <br> <br>
+
 ## Q&A
 
 Questions?
+
+<br> <br> <br>
 
 ## Factor Variables
 
@@ -298,6 +336,8 @@ In the dataset above, 'Month' is a categorical variable.
 Most important advantage of converting categorical life to factor variable: they can be used in statistical modeling where they will be implemented correctly, i.e., storing data as factors ensures that the modeling functions will treat such data correctly, and then be assigned the correct number of degrees of freedom.
 
 Ordered factor variables - when the categories of the factor variables have a particular order and it is used to perform comparisons. (Many R models ignore ordering even if present, by default, need to turn the ordering to TRUE.)
+
+<br>
 
 **Ways to handle factor variables**:
 
@@ -322,11 +362,15 @@ $$\begin{matrix} Jan & Feb & Mar \\ 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{mat
 
 Note: Factor variables are hard to update, so it could be a pain during data cleaning.
 
+<br> <br> <br>
+
 ## Regression Diagnostics - Outliers, Influential Values, Correlated Errors
 
 **Outliers**: an observation which has a response value that is very different from the predicted value based on a model.
 
 ![](outlier.png)
+
+<br>
 
 **Influential values**: a data point which unduly influences any part of a regression analysis, such as the predicted responses, the estimated slope coefficients, or the hypothesis test results.
 
@@ -356,6 +400,8 @@ ols_plot_dffits(simple_model)
 ols_plot_cooksd_chart(simple_model)
 ```
 
+<br>
+
 **Correlated errors**: The assumptions of linear regression state that the errors/residuals are uncorrelated. If correlation exists, it means that the model has not taken into account the additional information present in the data.
 
 Easiest method to check: Plot the residuals to identify any non-random trends.
@@ -366,7 +412,11 @@ plot(simple_model, which = 1)
 
 Note: Time series problems have correlated errors.
 
+<br> <br> <br>
+
 ## Additional Points to Remember
+
+<br> <br>
 
 ### Multi-collinearity 
 
@@ -389,6 +439,8 @@ vif(lm(Wind ~ Temp+Solar.R, data=airquality))
 vif(lm(Temp ~ Wind+Solar.R, data=airquality))
 vif(lm(Solar.R ~ Wind+Temp, data=airquality))
 ```
+
+<br> <br>
 
 ### Bias-Variance Trade-off
 
@@ -414,17 +466,23 @@ Frequently used techniques to reduce over-fitting:
 -   Early stopping during the training phase (keep an eye over the loss over the training period as soon as loss begins to increase stop training).
 -   Ridge and Lasso Regression - penalize for additional complexity
 
+<br>
+
 ### Regularization - Ridge and Lasso Regression
 
 Regularization fits a model containing all $p$ predictors using a technique that constrains or regularizes the coefficient estimates, or shrinks the coefficient estimates to zero. The tuning/penalty parameter is denoted by $\lambda$.
+
+For every model, the mean squared error in estimated target is the sum of **Variance**, **Bias** and in-built **random error in estimation**, $\epsilon$.
+
+To [minimize]{.ul} the expected error, a model with **low variance** and **low bias** is ***ideal***.
 
 -   $\lambda = 0$ : least square model with all $p$ predictors
 
 -   $\lambda = \infty$ : null model with all no predictors
 
-For every model, the mean squared error in estimated target is the sum of **Variance**, **Bias** and in-built **random error in estimation**, $\epsilon$.
+-   as $\lambda$ increases, variance decreases and bias increases
 
-To [minimize]{.ul} the expected error, a model with **low variance** and **low bias** is ***ideal***.
+<br>
 
 [**Ridge Regression/L2 Regularization**]{.ul} coefficients are values that minimize
 
@@ -434,13 +492,13 @@ where $\lambda \geq 0$ is the penalty term which controls the relative impact of
 
 -   includes all $p$ predictors and although increasing $\lambda$ reduces the magnitudes of the coefficient estimates, but it doesn't exclude them (unless $\lambda = \infty$)
 
--   as $\lambda$ increases, variance decreases and bias increases
-
 -   as $\lambda$ increases, $L_2$ $norm$ of $\beta$ coefficients decrease
 
 -   works best in situations where least squares estimates have **high variance**
 
 -   best to apply it after standardizing the predictors (so that they are on the same scale)
+
+<br>
 
 [**Lasso Regression/L1 Regularization**]{.ul} coefficients are values that minimize
 
@@ -448,15 +506,13 @@ $\sum_{i=1}^n (y_i - \beta_0 - \sum_{j=1}^p \beta_j x_{ij})^2 + \lambda \sum_{j=
 
 where $\lambda \geq 0$ is the penalty term which controls the relative impact of the two terms on the coefficient estimates.
 
--   shrinks the coefficients towards 0
-
--   increasing $\lambda$ forces some of the coefficients to be exactly 0
+-   shrinks the coefficients towards 0 as $\lambda$ increases
 
 -   as $\lambda$ increases, $L_1$ $norm$ of $\beta$ coefficients decrease
 
 -   since the coefficients are reduced to 0, Lasso regression can perform variable selection, which yields sparse models
 
--   as $\lambda$ increases, variance decreases and bias increases
+<br>
 
 [**Example**]{.ul}: Both ridge and lasso regression involves tuning the hyperparameter, $\lambda$. `glmnet()` runs the model many times with a different value of $\lambda$. `cv.glmnet()` uses cross-validation to check how well each model generalizes (visualized in plots below).
 
@@ -512,7 +568,11 @@ coef(cv_output_lasso, s = 'lambda.min')
 
 The (.)s represent zeros. In this case the coefficient for the predictor, 'Month' is reduced to 0.
 
+<br> <br> <br>
+
 ## Polynomial and Spline Regression {data-link="Polynomial and Spline Regression"}
+
+<br> <br>
 
 **Polynomial Regression** fits a polynomial relationship between the dependent variable $y$ and the independent variable $x$ . Such a model with a single predictor is
 
@@ -544,6 +604,8 @@ legend(55, 150, legend=c('simple reg', 'polynomial reg'),
        col=c('blue', 'purple'), lty = 1:1, box.lty=0)
 ```
 
+<br> <br>
+
 **Spline Regression** is one method for testing non-linearity in the predictor variables and for modeling non-linear functions. A spline is a function constructed piece-wise from polynomial functions.
 
 Instead of building one model for the full dataset, spline regression divides the data into multiple bins and fits each bin with separate model. The points where the division occurs is called *knots*.
@@ -568,23 +630,12 @@ legend(55, 150, legend=c('simple reg', 'spline reg'),
        col=c('blue', 'purple'), lty = 1:1, box.lty=0)
 ```
 
-##  {data-link="Additional Points to Remember"}
+<br> <br> <br>
 
 #### [**Regression Limitations**]{.ul}
 
 -   Sensitive to outliers
 -   Assumptions of linearity, independent predictors etc. (see assumptions section)
-
-```{r echo = FALSE}
-
-# split into train-test set
-#library(caTools)
-#x_train = subset(x, sample.split(airquality, SplitRatio = 0.7) == TRUE)
-#y_train = subset(y, sample.split(airquality, SplitRatio = 0.7) == TRUE)
-
-#x_test = subset(x, sample.split(airquality, SplitRatio = 0.7) == FALSE)
-#y_test = subset(y, sample.split(airquality, SplitRatio = 0.7) == FALSE)
-```
 
 ## References
 
