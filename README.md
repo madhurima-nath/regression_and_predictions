@@ -23,3 +23,5 @@ The New York air quality data ([details about dataset](https://stat.ethz.ch/R-ma
 6. [UCLA Course - COding Systems for Categorical Variables](https://stats.idre.ucla.edu/spss/faq/coding-systems-for-categorical-variables-in-regression-analysis-2/#SIMPLE%20EFFECT%20CODING)
 7. [Princeton Spline Regression Example](https://data.princeton.edu/eco572/smoothing2)
 8. [UT Dallas Spline Regression Example](https://personal.utdallas.edu/~Andrew.Wheeler/Splines.html)
+9. [Ridge Regression Example in R](https://drsimonj.svbtle.com/ridge-regression-with-glmnet)
+10. [Lasso Regression Example in R](https://rstatisticsblog.com/data-science-in-action/machine-learning/lasso-regression/)
