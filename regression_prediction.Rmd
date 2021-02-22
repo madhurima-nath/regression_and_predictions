@@ -480,9 +480,9 @@ ridge_lambda
 ```
 
 ```{r}
-# Rebuilding the model with best lamda value identified
-ridge_best = glmnet(x, y, alpha = 0, lambda = ridge_lambda)
-coef(ridge_best)
+# extract the coefficients associated with the value of lambda that gives the minimum cross-validation model
+
+coef(cv_output_ridge, s = 'lambda.min')
 ```
 
 -   $\alpha = 1$ for lasso regression
@@ -497,16 +497,20 @@ cv_output_lasso = cv.glmnet(x, y, alpha = 1, lambda = lambda_seq, nfolds = 5)
 plot(cv_output_lasso)
 ```
 
+The lowest point in the plot indicates the optimal $\lambda$.
+
 ```{r}
 lasso_lambda = cv_output_lasso$lambda.min
 lasso_lambda
 ```
 
 ```{r}
-# Rebuilding the model with best lamda value identified
-lasso_best = glmnet(x, y, alpha = 1, lambda = lasso_lambda)
-coef(lasso_best)
+# extract the coefficients associated with the value of lambda that gives the minimum cross-validation model
+
+coef(cv_output_lasso, s = 'lambda.min')
 ```
+
+The (.)s represent zeros. In this case the coefficient for the predictor, 'Month' is reduced to 0.
 
 ## Polynomial and Spline Regression {data-link="Polynomial and Spline Regression"}
 
