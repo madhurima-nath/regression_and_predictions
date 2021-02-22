@@ -138,6 +138,7 @@ head(airquality)
 
 library(ggplot2)
 library(olsrr)
+library(glmnet)
 library(splines)
 library(car)
 ```
@@ -455,7 +456,57 @@ where $\lambda \geq 0$ is the penalty term which controls the relative impact of
 
 -   since the coefficients are reduced to 0, Lasso regression can perform variable selection, which yields sparse models
 
-[**Use Case**]{.ul}
+-   as $\lambda$ increases, variance decreases and bias increases
+
+[**Example**]{.ul}: Both ridge and lasso regression involves tuning the hyperparameter, $\lambda$. `glmnet()` runs the model many times with a different value of $\lambda$. `cv.glmnet()` uses cross-validation to check how well each model generalizes (visualized in plots below).
+
+-   $\alpha = 0$ for ridge regression
+
+```{r}
+# ridge regression
+
+lambda_seq = 10^seq(5, -2, by = -.1)
+
+cv_output_ridge = cv.glmnet(x, y, alpha = 0, lambda = lambda_seq, nfolds = 5)
+
+plot(cv_output_ridge)
+```
+
+The lowest point in the plot indicates the optimal $\lambda$.
+
+```{r}
+ridge_lambda = cv_output_ridge$lambda.min
+ridge_lambda
+```
+
+```{r}
+# Rebuilding the model with best lamda value identified
+ridge_best = glmnet(x, y, alpha = 0, lambda = ridge_lambda)
+coef(ridge_best)
+```
+
+-   $\alpha = 1$ for lasso regression
+
+```{r}
+# lasso regression
+
+lambda_seq = 10^seq(5, -2, by = -.1)
+
+cv_output_lasso = cv.glmnet(x, y, alpha = 1, lambda = lambda_seq, nfolds = 5)
+
+plot(cv_output_lasso)
+```
+
+```{r}
+lasso_lambda = cv_output_lasso$lambda.min
+lasso_lambda
+```
+
+```{r}
+# Rebuilding the model with best lamda value identified
+lasso_best = glmnet(x, y, alpha = 1, lambda = lasso_lambda)
+coef(lasso_best)
+```
 
 ## Polynomial and Spline Regression {data-link="Polynomial and Spline Regression"}
 
@@ -541,3 +592,5 @@ legend(55, 150, legend=c('simple reg', 'spline reg'),
 6.  [UCLA Course - Coding Systems for Categorical Variables](https://stats.idre.ucla.edu/spss/faq/coding-systems-for-categorical-variables-in-regression-analysis-2/#SIMPLE%20EFFECT%20CODING)
 7.  [Princeton Spline Regression Example](https://data.princeton.edu/eco572/smoothing2)
 8.  [UT Dallas Spline Regression Example](https://personal.utdallas.edu/~Andrew.Wheeler/Splines.html)
+9.  [Ridge Regression Example in R](https://drsimonj.svbtle.com/ridge-regression-with-glmnet)
+10. [Lasso Regression Example in R](https://rstatisticsblog.com/data-science-in-action/machine-learning/lasso-regression/)
