@@ -110,7 +110,7 @@ Generally, all real-world problems involve multiple predictors.
 
 ## Real-world Example using Regression
 
-Data: New York air quality data in R ([details about dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/airquality.html))
+Data: New York air quality data in R ([download data from Kaggle](https://www.kaggle.com/pratiksagrawal/practice-data-set-for-air-quality?select=airquality.csv))
 
 -   Ozone: Mean ozone in parts per billion from 1300 to 1500 hours at Roosevelt Island
 
