@@ -4,6 +4,8 @@ output:
   html_notebook: default
 ---
 
+[Link to Presentation Slides](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_and_predictions.pdf)
+
 ## Contents:
 
 This notebook contains the following topics:
@@ -418,7 +420,7 @@ Note: Time series problems have correlated errors.
 
 <br> <br>
 
-### Multi-collinearity 
+### Multi-collinearity
 
 When two or more of the predictors in a regression model are moderately or highly correlated with one another.
 
