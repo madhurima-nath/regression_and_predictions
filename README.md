@@ -14,6 +14,7 @@ The following topics are covered in the session.
 
 The New York air quality data ([details about dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/airquality.html)) is used for the analysis in the [R notebook](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_prediction.Rmd). 
 
+[Link to the Slides](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_and_predictions.pdf)
 
 ## References:
 1. [Penn State STAT 462 Applied Regression Analysis](https://online.stat.psu.edu/stat462/node/77/)
