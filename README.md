@@ -12,7 +12,7 @@ The following topics are covered in the session.
 - Ridge and Lasso Regression
 - Polynomial and Spline Regression
 
-The New York air quality data ([details about dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/airquality.html)) is used for the analysis in the [R notebook](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_prediction.Rmd). 
+The New York air quality data ([details about dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/airquality.html)) is used for the analysis in the [R notebook](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_prediction.Rmd). [Download data from Kaggle here](https://www.kaggle.com/pratiksagrawal/practice-data-set-for-air-quality?select=airquality.csv).
 
 [Link to the Slides](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_and_predictions.pdf)
 
