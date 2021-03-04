@@ -14,6 +14,12 @@ The following topics are covered in the session.
 
 The New York air quality data ([details about dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/airquality.html)) is used for the analysis in the [R notebook](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_prediction.Rmd). [Download data from Kaggle here](https://www.kaggle.com/pratiksagrawal/practice-data-set-for-air-quality?select=airquality.csv).
 
+**Note**: When the HTML file is downloaded, if it appears in its *raw version*, please follow the following steps to make it readable.
+- Download the HTML file in the browser
+- Right click anywhere on the page of the HTML file and select 'Save As' from the options
+- Save the file on the local machine as File Type 'HTML'
+- Once saved, open that file and this will open the correctly formatted HTML notebook
+
 [Link to the Slides](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_and_predictions.pdf)
 
 ## References:
@@ -27,3 +33,5 @@ The New York air quality data ([details about dataset](https://stat.ethz.ch/R-ma
 8. [UT Dallas Spline Regression Example](https://personal.utdallas.edu/~Andrew.Wheeler/Splines.html)
 9. [Ridge Regression Example in R](https://drsimonj.svbtle.com/ridge-regression-with-glmnet)
 10. [Lasso Regression Example in R](https://rstatisticsblog.com/data-science-in-action/machine-learning/lasso-regression/)
+
+Feel free to reach out if you have any questions.
