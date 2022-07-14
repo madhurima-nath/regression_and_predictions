@@ -22,6 +22,11 @@ The New York air quality data ([details about dataset](https://stat.ethz.ch/R-ma
 
 [Link to the Slides](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_and_predictions.pdf)
 
+[YouTube link](https://www.youtube.com/watch?v=abIdg7tSQuE)
+
+Feel free to reach out if you have any questions.
+
+
 ## References:
 1. [Penn State STAT 462 Applied Regression Analysis](https://online.stat.psu.edu/stat462/node/77/)
 2. [Khan Academy](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/assessing-fit-least-squares-regression/v/influential-points-regression)
@@ -33,5 +38,3 @@ The New York air quality data ([details about dataset](https://stat.ethz.ch/R-ma
 8. [UT Dallas Spline Regression Example](https://personal.utdallas.edu/~Andrew.Wheeler/Splines.html)
 9. [Ridge Regression Example in R](https://drsimonj.svbtle.com/ridge-regression-with-glmnet)
 10. [Lasso Regression Example in R](https://rstatisticsblog.com/data-science-in-action/machine-learning/lasso-regression/)
-
-Feel free to reach out if you have any questions.
