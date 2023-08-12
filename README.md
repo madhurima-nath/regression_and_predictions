@@ -20,7 +20,7 @@ The New York air quality data ([details about dataset](https://stat.ethz.ch/R-ma
 - Save the file on the local machine as File Type 'HTML'
 - Once saved, open that file and this will open the correctly formatted HTML notebook
 
-[Link to the Slides](https://github.com/mnathvt/regression_and_predictions/blob/main/regression_and_predictions.pdf)
+[Link to the Slides](https://github.com/madhurima-nath/regression_and_predictions/blob/main/regression_and_predictions.pdf)
 
 [YouTube link](https://www.youtube.com/watch?v=abIdg7tSQuE)
 
