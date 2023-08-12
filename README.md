@@ -34,4 +34,4 @@ Feel free to reach out if you have any questions.
 4. [CMU Data Analytics Course](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/06/lecture-06.pdf)
 5. [Measures of Influence](https://cran.r-project.org/web/packages/olsrr/vignettes/influence_measures.html#:~:text=Cook's%20D%20Bar%20Plot,-Bar%20Plot%20of&text=Cook's%20distance%20was%20introduced%20by,y%20value%20of%20the%20observation.)
 6. [UCLA Course - Coding Systems for Categorical Variables](https://stats.idre.ucla.edu/spss/faq/coding-systems-for-categorical-variables-in-regression-analysis-2/#SIMPLE%20EFFECT%20CODING)
-8. [Ridge Regression Example in R](https://drsimonj.svbtle.com/ridge-regression-with-glmnet)
+7. [Ridge Regression Example in R](https://drsimonj.svbtle.com/ridge-regression-with-glmnet)
